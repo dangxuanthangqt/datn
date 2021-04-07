@@ -18,5 +18,21 @@
         "react"
     ],
     "rules": {
+        "comma-dangle": ["error", "always-multiline"],
+        "import/imports-first": 0,
+        "import/newline-after-import": 1,
+        "no-console": 1,
+        "semi": [
+            "error",
+            "never"
+        ],
+        "react/prop-types": 1,
+        "arrow-parens": 0,
+        "arrow-body-style": [
+            2,
+            "as-needed"
+        ],
+        "import/prefer-default-export": 0,
+        "linebreak-style": 0
     }
 }
