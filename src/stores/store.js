@@ -12,7 +12,7 @@ const persistConfig = {
   storage,
   whitelist: ['Authorization'],
 }
-const pReducer = persistReducer(persistConfig, rootReducer)
+const pReducer = persistReducer(persistConfig, rootReducer())
 
 const configureStore = () => {
   let composeEnhancers = compose
