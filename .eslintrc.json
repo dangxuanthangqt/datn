@@ -1,38 +1,37 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "comma-dangle": ["error", "always-multiline"],
-        "import/imports-first": 0,
-        "import/newline-after-import": 1,
-        "no-console": 1,
-        "semi": [
-            "error",
-            "never"
-        ],
-        "react/prop-types": 1,
-        "arrow-parens": 0,
-        "arrow-body-style": [
-            2,
-            "as-needed"
-        ],
-        "import/prefer-default-export": 0,
-        "linebreak-style": 0
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "comma-dangle": ["error", "always-multiline"],
+    "import/imports-first": 0,
+    "import/newline-after-import": 1,
+    "no-console": 1,
+    "semi": ["error", "never"],
+    "react/prop-types": 1,
+    "arrow-parens": 0,
+    "arrow-body-style": [2, "as-needed"],
+    "import/prefer-default-export": 0,
+    "linebreak-style": 0,
+    "class-methods-use-this": "off",
+    "prefer-promise-reject-errors": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".vue"],
+        "paths": ["./src"]
+      }
     }
+  }
 }
