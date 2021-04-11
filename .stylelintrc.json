@@ -2,7 +2,7 @@
   "processors": ["stylelint-processor-styled-components"],
   "plugins": ["stylelint-a11y"],
   "rules": {
-    "value-keyword-case": null
+    "value-keyword-case": ["lower", { "ignoreKeywords": ["dummyValue"] }]
   },
   "extends": [
     "stylelint-config-standard",

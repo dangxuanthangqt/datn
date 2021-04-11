@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 function App() {
   useEffect(() => {
+    console.log(process.env.NODE_ENV)
     setInterval(() => {
       toastDefault('Welcome')
     }, 5000)
