@@ -1,34 +1,31 @@
-import React from 'react'
-import { BillingInfoFilterWrapper } from 'styled/styled'
-import './App.css'
+import React, { useEffect } from 'react'
 import store from 'stores/store'
 import { Provider } from 'react-redux'
-import logo from './logo.svg'
+import { ThemeProvider } from 'styled-components'
+import theme from 'styles/theme'
+import GlobalStyle from 'styles/global'
+import ToastifyContainer from 'components/ToastifyContainer'
+import { toastDefault } from 'helpers/toastify'
+import { PersistGate } from 'redux-persist/integration/react'
 
 function App() {
+  useEffect(() => {
+    setInterval(() => {
+      toastDefault('Welcome')
+    }, 5000)
+    return () => {
+      clearInterval(toastDefault('Welcome'))
+    }
+  }, [])
   return (
-    <Provider store={store}>
-
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit
-            <code>src/App.js</code>
-            and save to reload.
-          </p>
-          <BillingInfoFilterWrapper />
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-
+    <Provider store={store.store}>
+      <PersistGate loading={null} persistor={store.persistor}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <ToastifyContainer />
+          <div className="App" />
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   )
 }

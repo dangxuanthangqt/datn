@@ -1,9 +1,18 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { routerMiddleware } from 'connected-react-router'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 import history from 'helpers/history'
-import createRootReducer from './reducer'
+import rootReducer from './reducer'
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['Authorization'],
+}
+const pReducer = persistReducer(persistConfig, rootReducer)
 
 const configureStore = () => {
   let composeEnhancers = compose
@@ -19,13 +28,14 @@ const configureStore = () => {
   }
 
   const store = createStore(
-    createRootReducer(),
+    pReducer,
     composeEnhancers(applyMiddleware(...middlewares)),
   )
 
   store.injectedReducers = {} // Reducer registry
+  const persistor = persistStore(store)
 
-  return store
+  return { store, persistor }
 }
 
 export default configureStore()
