@@ -24,7 +24,11 @@
     "import/prefer-default-export": 0,
     "linebreak-style": 0,
     "class-methods-use-this": "off",
-    "prefer-promise-reject-errors": "off"
+    "prefer-promise-reject-errors": "off",
+    "no-param-reassign": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/forbid-prop-types": "off"
   },
   "settings": {
     "import/resolver": {
