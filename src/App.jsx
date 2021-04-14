@@ -9,15 +9,15 @@ import { toastDefault } from 'helpers/toastify'
 import { PersistGate } from 'redux-persist/integration/react'
 
 function App() {
-  useEffect(() => {
-    console.log(process.env.NODE_ENV)
-    setInterval(() => {
-      toastDefault('Welcome')
-    }, 5000)
+  useEffect( () => {
+    console.log( process.env.NODE_ENV )
+    setInterval( () => {
+      toastDefault( 'Welcome' )
+    }, 5000 )
     return () => {
-      clearInterval(toastDefault('Welcome'))
+      clearInterval( toastDefault( 'Welcome' ) )
     }
-  }, [])
+  }, [] )
   return (
     <Provider store={store.store}>
       <PersistGate loading={null} persistor={store.persistor}>
