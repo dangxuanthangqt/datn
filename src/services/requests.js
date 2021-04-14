@@ -10,6 +10,15 @@ const axiosInstance = axios.create( {
   paramsSerializer: ( params ) => qs.stringify( params, { arrayFormat: 'brackets' } ),
 } )
 
+axiosInstance.interceptors.request.use( config => {
+  const user = JSON.parse( localStorage.getItem( 'user' ) )
+  if ( user && user.accessToken ) {
+    const accessToken = `Bearer ${user.accessToken}`
+    config.headers.Authorization = accessToken
+  }
+  return config
+},
+error => Promise.reject( error ) )
 class Request {
   get( config ) {
     return this.execute( { method: 'get', ...config } )
