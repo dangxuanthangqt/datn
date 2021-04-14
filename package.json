@@ -33,7 +33,8 @@
     "eject": "react-scripts eject",
     "lint:es": "eslint . --ext jsx,js",
     "lint:style": "stylelint src/**/*.js",
-    "lint": "yarn lint:es & yarn lint:style"
+    "lint": "yarn lint:es & yarn lint:style",
+    "lint:fix": "eslint --fix --ext .js,.jsx ."
   },
   "eslintConfig": {
     "extends": [
@@ -62,11 +63,27 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "4.3.2",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
     "stylelint": "^13.12.0",
     "stylelint-a11y": "^1.2.3",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^21.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js?(x)": [
+      "yarn lint:fix"
+    ],
+    "*.{html,css,less,md,json}": [
+      "prettier --write"
+    ]
   }
 }
