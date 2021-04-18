@@ -1,0 +1,88 @@
+.container-signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 20px 20px;
+}
+
+.login__form {
+  &-input {
+    margin-bottom: -5px;
+    border-radius: 30px;
+    line-height: 2.3;
+    padding: 7px 17px;
+    width: 500px;
+
+    &-select {
+      border-radius: 30px !important;
+      line-height: 2.3 !important;
+      width: 100% !important;
+      .ant-select {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ant-select-selector {
+        padding: 7px 20px !important;
+        height: 48px !important;
+        border-radius: 30px !important;
+      }
+      .ant-select-selection-search-input {
+        padding: 5px 10px !important;
+        height: 45px !important;
+      }
+      .ant-select-single:not(.ant-select-customize-input)
+        .ant-select-selector
+        .ant-select-selection-search-input {
+        height: 45px !important;
+      }
+    }
+  }
+  &-btn {
+    width: 100%;
+    padding: 7px 17px;
+    line-height: 2.3;
+    height: auto;
+    border-radius: 30px;
+  }
+}
+.align-btn {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.ant-form-item-explain {
+  margin: 10px;
+}
+
+.register-candidate {
+  box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 20px 80px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  &:before {
+    content: '';
+    position: absolute;
+    right: 100px;
+    transform: rotate(30deg);
+    top: 0;
+    height: 1200px;
+    width: 182%;
+    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    z-index: -110;
+  }
+}
+span.ant-form-item-children-icon {
+  position: relative;
+  margin-right: -70px;
+}

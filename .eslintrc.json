@@ -29,7 +29,7 @@
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
     "react/forbid-prop-types": "off",
-    "space-in-parens": ["error", "always"]
+    "object-curly-spacing": ["error", "always"]
   },
   "settings": {
     "import/resolver": {

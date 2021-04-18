@@ -3,18 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.6.2",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "antd": "^4.15.1",
     "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
     "connected-react-router": "^6.9.1",
     "dotenv": "^8.2.0",
-    "history": "^5.0.0",
+    "history": "4.10.1",
     "lodash": "^4.17.21",
+    "node-sass": "^5.0.0",
+    "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "qs": "^6.10.1",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
@@ -82,7 +88,7 @@
     "*.js?(x)": [
       "yarn lint:fix"
     ],
-    "*.{html,css,less,md,json}": [
+    "*.{html,scss,less,md,json}": [
       "prettier --write"
     ]
   }
