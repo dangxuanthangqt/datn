@@ -1,24 +1,27 @@
 // import { ConnectedRouter } from 'connected-react-router'
 import history from 'helpers/history'
 import React, { Suspense } from 'react'
-import { Switch, Router } from 'react-router-dom'
-
-import AuthRoute from './AuthRoute/AuthRoute'
-import { AuthRoutes } from './routeConfigs'
+import { Router } from 'react-router-dom'
+import { v4 } from 'uuid'
+import AuthRoute from './AuthRoute'
+import PublicRoute from './PublicRoute'
+import { AuthRoutes, PublicRoutes } from './routeConfigs'
 
 export default function Routers() {
   return (
     <Router history={history}>
       <Suspense fallback="loading">
-        <Switch>
-          {
+        {
            AuthRoutes.map((item) => (
-             <AuthRoute {...item} />
+             <AuthRoute key={v4()} {...item} />
            ))
           }
-        </Switch>
+        {
+            PublicRoutes.map((item) => (
+              <PublicRoute key={v4()} {...item} />
+            ))
+        }
       </Suspense>
-
     </Router>
 
   )

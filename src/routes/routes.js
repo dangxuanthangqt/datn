@@ -1,9 +1,13 @@
 export const routes = {
-  login: {
+  homePage: {
+    path: '/',
+    build: () => '/',
+  },
+  loginPage: {
     path: '/login',
     build: () => '/login',
   },
-  signup: {
+  signupPage: {
     path: '/signup',
     build: () => 'signup',
   },

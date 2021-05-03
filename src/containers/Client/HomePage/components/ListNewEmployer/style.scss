@@ -1,0 +1,112 @@
+#employerr {
+  // background-image: url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-02.jpg");
+  // background-color: #e0e0e0;
+  // background-size: cover;
+  // border-image-repeat: none;
+  padding: 20px;
+}
+.home-emplyer {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.employer-home {
+  font-family: 'Roboto', sans-serif !important;
+  height: 420px;
+  margin: 15px 0;
+
+  cursor: pointer;
+  box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.08);
+
+  &__cover {
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+  }
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: row;
+    position: relative;
+    margin-top: -50px;
+    margin-left: 10px;
+
+    &-avatar {
+      width: 100px;
+      height: 100px;
+      border: 2px solid #a4a4b5;
+      border-radius: 10px;
+      overflow: hidden;
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+    }
+    &-detail {
+      padding: 10px 10px 0 10px;
+      h3 {
+        font-weight: bold;
+        color: #3f4259;
+        font-size: 0.9rem;
+        margin: 0 0 8px 0 !important;
+      }
+      p {
+        font-weight: normal;
+        font-size: 0.8rem;
+        margin: 0 !important;
+        color: #b3b3c5;
+      }
+    }
+    &-dep {
+      padding: 5px 10px;
+
+      p {
+        display: inline-block;
+        line-height: 2;
+        span {
+          margin-right: 10px;
+        }
+        display: flex;
+        justify-content: flex-start;
+        align-items: baseline;
+        font-weight: normal;
+        font-size: 0.8rem;
+        margin: 0 !important;
+        color: #a4a4b5;
+      }
+    }
+  }
+  &:hover {
+    box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.2);
+  }
+}
+.btn-job-custom {
+  margin-left: -5px;
+  a {
+    text-decoration: none;
+    font-size: smaller;
+  }
+}
+.custom-notical {
+  background-color: tomato;
+}
+@media (max-width: 992px) {
+  .home-emplyer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .line-theme {
+    display: none;
+  }
+  .job__title {
+    justify-content: space-between;
+  }
+}
+@media (max-width: 768px) {
+  .home-emplyer {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -121,6 +121,13 @@ h3 {
   margin-top: 10px;
   z-index: 0;
 }
+
+.ant-form-item-explain-error {
+  & > div {
+    margin-top: 10px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .container-login {
     margin: 0rem 0px;

@@ -8,7 +8,7 @@ const { TabPane } = Tabs
 function SignupPage() {
   return (
     <>
-      <Tabs className="container" defaultActiveKey="1">
+      <Tabs defaultActiveKey="1">
         <TabPane tab="Ứng viên" key="1">
           <SignupCandidate />
         </TabPane>

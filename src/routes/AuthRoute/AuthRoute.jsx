@@ -1,22 +1,37 @@
 import React from 'react'
-import { Route, Redirect, useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import { Redirect, Route, Switch } from 'react-router-dom'
+import { isAuthenticationSelector } from 'stores/moduleAuth/selectors'
+import { v4 } from 'uuid'
 
 const AuthRoute = (props) => {
-  const location = useLocation()
   const { layout: Layout, subRoutes } = props
-  const isLogin = true
-  if (!isLogin) return <Redirect to={{ pathname: '/', state: { from: location.pathname } }} />
-  return subRoutes.map((item) => (
-    <Route
-      path={item.path}
-      exact={item.exact}
-      render={() => (
-        <Layout>
-          <item.component />
-        </Layout>
-      )}
-    />
-  ))
-}
+  // const location = useLocation()
+  const isAuthentication = useSelector(isAuthenticationSelector)
+  if (isAuthentication) return <Redirect to="/" />
 
+  return (
+    <Switch>
+      {
+        subRoutes.map((item) => (
+          <Route
+            key={v4()}
+            path={item.path}
+            exact={item.exact}
+            render={() => (
+              <Layout>
+                <item.component />
+              </Layout>
+            )}
+          />
+        ))
+    }
+    </Switch>
+  )
+}
+AuthRoute.propTypes = {
+  layout: PropTypes.element,
+  subRoutes: PropTypes.array,
+}
 export default AuthRoute

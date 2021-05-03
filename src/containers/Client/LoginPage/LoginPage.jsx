@@ -1,15 +1,18 @@
+import React from 'react'
 import {
   Button, Col, Form, Input, Row,
 } from 'antd'
-import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import { loginUserRequest } from 'stores/moduleAuth/thunks'
 import './style.scss'
 
 export default function Login() {
-  const onFinish = (value) => {
-    console.log(value)
+  const dispatch = useDispatch()
+  const onFinish = (data) => {
+    dispatch(loginUserRequest(data))
   }
-  console.log('ASd')
   return (
     <div>
       <Row className="login">

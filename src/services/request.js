@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { StatusCode } from 'constants/statusCode'
+import { toastWarning } from 'helpers/toastify'
 import qs from 'qs'
 import getAPIBaseURL from './getAPIBaseURL'
 
 const axiosInstance = axios.create({
   baseURL: getAPIBaseURL(),
-  withCredentials: true,
+  // withCredentials: true,
   timeout: 60000,
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),
 })
@@ -53,7 +54,7 @@ class Request {
     }
   }
 
-  handleErrror(error) {
+  handleError(error) {
     const { status, data } = error.response ?? {}
     if (!!error.response || !status) {
       return {
@@ -68,7 +69,7 @@ class Request {
       window.location.replace('test')
     }
     if (status >= StatusCode.InternalServerError) {
-      console.log('Internal Server Error')
+      toastWarning('Internal Server Error')
 
       return { status, data: {} }
     }

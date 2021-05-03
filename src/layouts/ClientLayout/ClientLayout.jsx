@@ -1,4 +1,5 @@
 import { Skeleton } from 'antd'
+import { PropTypes } from 'prop-types'
 import 'antd/dist/antd.css'
 import NProgress from 'nprogress'
 import React, { Suspense } from 'react'
@@ -34,7 +35,6 @@ const LazyLoading = () => {
 
 function ClientLayout(props) {
   const { children } = props
-  console.log('dang xuan thang')
   return (
     <div>
       <Header />
@@ -52,5 +52,7 @@ function ClientLayout(props) {
     </div>
   )
 }
-
+ClientLayout.propTypes = {
+  children: PropTypes.element,
+}
 export default ClientLayout
