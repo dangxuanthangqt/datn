@@ -18,39 +18,39 @@ export default function Search(props) {
     career: '',
   })
 
-  const city = useSelector(listCitySelector)
-  const rank = useSelector(listRankSelector)
-  const career = useSelector(listCareerSelector)
+  const citys = useSelector(listCitySelector)
+  const ranks = useSelector(listRankSelector)
+  const careers = useSelector(listCareerSelector)
 
-  const citys = [
-    {
-      created_at: '2020-11-12 12:54:39',
-      id: '',
-      name: '',
-      updated_at: '2020-11-12 12:54:39',
-    },
-    ...city.result,
-  ]
+  // const citys = [
+  //   {
+  //     created_at: '2020-11-12 12:54:39',
+  //     id: '',
+  //     name: '',
+  //     updated_at: '2020-11-12 12:54:39',
+  //   },
+  //   ...city.result,
+  // ]
 
-  const ranks = [
-    {
-      created_at: '2020-11-12 12:54:39',
-      id: '',
-      name: '',
-      updated_at: '2020-11-12 12:54:39',
-    },
-    ...rank.result,
-  ]
+  // const ranks = [
+  //   {
+  //     created_at: '2020-11-12 12:54:39',
+  //     id: '',
+  //     name: '',
+  //     updated_at: '2020-11-12 12:54:39',
+  //   },
+  //   ...rank.result,
+  // ]
 
-  const careers = [
-    {
-      created_at: '2020-11-12 12:54:39',
-      id: '',
-      name: '',
-      updated_at: '2020-11-12 12:54:39',
-    },
-    ...career.result,
-  ]
+  // const careers = [
+  //   {
+  //     created_at: '2020-11-12 12:54:39',
+  //     id: '',
+  //     name: '',
+  //     updated_at: '2020-11-12 12:54:39',
+  //   },
+  //   ...career.result,
+  // ]
 
   const { handleCurrent } = props
   const { handleSubmit } = props
@@ -118,20 +118,14 @@ export default function Search(props) {
                 className="search__input-select"
                 onChange={handleChangeCity}
               >
-                {citys.map((value) => {
-                  if (value.name === '') {
-                    return (
-                      <Option key={v4()} value={value.id}>
-                        Tất cả
-                      </Option>
-                    )
-                  }
-                  return (
-                    <Option key={v4()} value={value.id}>
-                      {value.name}
-                    </Option>
-                  )
-                })}
+                <Option key={v4()} value="">
+                  Tất cả
+                </Option>
+                {citys.map((value) => (
+                  <Option key={v4()} value={value.id}>
+                    {value.name}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
 
@@ -141,20 +135,14 @@ export default function Search(props) {
                 className="search__input-select"
                 onChange={handleChangeRank}
               >
-                {ranks.map((value) => {
-                  if (value.name === '') {
-                    return (
-                      <Option key={v4()} value={value.id}>
-                        Tất cả
-                      </Option>
-                    )
-                  }
-                  return (
-                    <Option key={v4()} value={value.id}>
-                      {value.name}
-                    </Option>
-                  )
-                })}
+                <Option key={v4()} value="">
+                  Tất cả
+                </Option>
+                {ranks.map((value) => (
+                  <Option key={v4()} value={value.id}>
+                    {value.name}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
 
@@ -164,20 +152,14 @@ export default function Search(props) {
                 className="search__input-select"
                 onChange={handleChangeCareer}
               >
-                {careers.map((value) => {
-                  if (value.name === '') {
-                    return (
-                      <Option key={v4()} value={value.id}>
-                        Tất cả
-                      </Option>
-                    )
-                  }
-                  return (
-                    <Option key={v4()} value={value.id}>
-                      {value.name}
-                    </Option>
-                  )
-                })}
+                <Option key={v4()} value="">
+                  Tất cả
+                </Option>
+                {careers.map((value) => (
+                  <Option key={v4()} value={value.id}>
+                    {value.name}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
             <Form.Item>

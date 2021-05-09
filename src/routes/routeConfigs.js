@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 
 import ClientLayout from 'layouts/ClientLayout'
+import CandidateDashboard from 'layouts/CandidateDashboard'
 import roles from 'constants/roles'
 import { routes } from './routes'
 
@@ -36,32 +37,40 @@ export const PublicRoutes = [
         exact: true,
         component: lazy(() => import('containers/Client/HomePage')),
       },
+      {
+        title: 'Việc làm',
+        key: 'recruitment',
+        path: routes.recruitmentPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/RecruitmentPage')),
+      },
+      {
+        title: 'Nhà tuyển dụng',
+        key: 'employer',
+        path: routes.employerPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/EmployerPage')),
+      },
+      {
+        title: 'Chi tiết nhà tuyển dụng',
+        key: 'employer/id',
+        path: routes.employerDetailPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/EmployerPage/components/EmployerDetail')),
+      },
     ],
   },
 ]
-export const protectedRoutes = [
+export const ProtectedRoutes = [
   {
-    layout: 'CandidateDashBroad',
-    subroutes: [
+    layout: CandidateDashboard,
+    subRoutes: [
       {
-        key: 'candidate-dashbroad',
-        path: '/candidate-dashbroad',
+        title: 'Quản lý thông tin ',
+        key: 'candidate-dashboard',
+        path: routes.candidateDashboardPage.path,
         exact: true,
-      //  component: lazy(() => import('../app/Containers/Client/CandidateDashbroad')),
-      },
-      {
-        key: 'list-job-apply',
-        path: '/candidate-dashbroad/list-job',
-        exact: true,
-        //   component: lazy(() => import('../app/Containers/Client/C
-        // andidateDashbroad/component/ListJobApply')),
-      },
-      {
-        key: 'list-cv',
-        path: '/candidate-dashbroad/list-cv',
-        exact: true,
-        //    component: lazy(() => import('../app/Conta
-        // iners/Client/CandidateDashbroad/component/ListCv')),
+        component: lazy(() => import('containers/Client/CandidateDashboard')),
       },
     ],
     permission: [

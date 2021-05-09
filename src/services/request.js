@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { StatusCode } from 'constants/statusCode'
 import { toastWarning } from 'helpers/toastify'
+import { get } from 'lodash'
 import qs from 'qs'
+import Store from 'stores/store'
 import getAPIBaseURL from './getAPIBaseURL'
 
 const axiosInstance = axios.create({
@@ -12,10 +14,11 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(config => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  if (user && user.accessToken) {
-    const accessToken = `Bearer ${user.accessToken}`
-    config.headers.Authorization = accessToken
+  const { store } = Store
+  const accessToken = get(store.getState(), 'authState.user.accessToken', null)
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`
   }
   return config
 },

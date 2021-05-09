@@ -1,7 +1,5 @@
-import useDocumentTitle from 'hooks/useDocumentTitle'
-import React, { useState, useLayoutEffect } from 'react'
-import ListRecruitment from './RecruitmentDetail'
-
+import React, { useState } from 'react'
+import ListRecruitment from './ListRecruitment'
 import Search from './Search'
 
 export default function RecruitmentPages() {
@@ -10,11 +8,10 @@ export default function RecruitmentPages() {
     city: '',
     rank: '',
     career: '',
+    limit: 8,
+    page: 1,
   })
 
-  useLayoutEffect(() => {
-    useDocumentTitle('Việc làm')
-  })
   const [current, setCurrent] = useState(1)
 
   const handleCurrent = (val) => {
@@ -27,6 +24,8 @@ export default function RecruitmentPages() {
       city: data.city,
       rank: data.rank,
       career: data.career,
+      limit: 8,
+      page: current,
     }))
   }
 

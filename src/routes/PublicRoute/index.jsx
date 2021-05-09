@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { v4 } from 'uuid'
 
-export default function PublicRoute(props) {
+export default function ProtectedRoute(props) {
   const { layout: Layout, subRoutes } = props
   return (
     <Switch>
@@ -24,7 +24,7 @@ export default function PublicRoute(props) {
     </Switch>
   )
 }
-PublicRoute.propTypes = {
+ProtectedRoute.propTypes = {
   layout: PropTypes.element,
   subRoutes: PropTypes.array,
 }

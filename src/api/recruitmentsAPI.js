@@ -1,3 +1,4 @@
+import { omit } from 'lodash'
 import Request from 'services/request'
 
 export const fetchDashboard = () => Request.get({
@@ -13,4 +14,13 @@ export const fetchListRecruiment = (data) => Request.get({
   params: {
     ...data,
   },
+})
+
+export const fetchLitsRecruitmentByEmployerID = (data) => Request.get({
+  url: `getrecruitmentsbyemployerid/${data.id}`,
+  params: { ...omit(data, 'id') },
+})
+
+export const fetchDetailRecruitment = (id) => Request.get({
+  url: `recruitments/${id}`,
 })

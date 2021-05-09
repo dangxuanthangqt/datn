@@ -1,0 +1,80 @@
+#employerID {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px;
+}
+.employerID {
+  padding: 20px 40px;
+  background-color: #20bbdb;
+  height: 400px;
+  width: 80%;
+  overflow: hidden;
+  margin-top: 50px;
+  &-info {
+    width: 50%;
+    h4 {
+      font-size: 1.2rem;
+      padding: 10px;
+      font-weight: bold;
+      border-bottom: 3px solid white;
+    }
+    p {
+      font-size: 0.9rem;
+      font-weight: normal;
+      margin: 0;
+      color: #efefef;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+  h4 {
+    color: white;
+  }
+  &__cover {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 55%;
+
+    border: 10px solid white;
+    height: 350px;
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+      height: auto;
+      width: 100%;
+    }
+  }
+  &__avatar {
+    position: absolute;
+    top: 60%;
+    right: 45%;
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #f4f4f4;
+    img {
+      object-fit: cover;
+      border-radius: 10px;
+      width: 100%;
+      background-color: white;
+    }
+  }
+}
+
+.pagination__employer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-recruiment {
+  p {
+    margin-bottom: 15px;
+  }
+}

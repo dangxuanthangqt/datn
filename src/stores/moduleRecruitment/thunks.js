@@ -1,10 +1,13 @@
+/* eslint-disable no-unused-vars */
 import * as recruitmentsAPI from 'api/recruitmentsAPI'
 import { toastWarning } from 'helpers/toastify'
-import { get } from 'lodash'
+import { get, head } from 'lodash'
 import {
   fetchInfoSuccess,
   fetchListRecruitmentOrderSuccess,
   fetchListRecruitmentSuccess,
+  fetchDetailRecruitmentSuccess,
+  fetchListRecruitmentByEmployerIDSuccess,
 } from './slices'
 
 export const fetchInformationRequest = () => async (dispatch) => {
@@ -29,9 +32,30 @@ export const fetchListRecruitmentOrderRequest = () => async (dispatch) => {
 
 export const fetchListRecruitment = (payload) => async (dispatch) => {
   try {
-    const resp = await recruitmentsAPI.fetchRecruitment(payload)
+    const resp = await recruitmentsAPI.fetchListRecruiment(payload)
     const { data } = resp
     dispatch(fetchListRecruitmentSuccess(get(data, 'result', {})))
+  } catch (err) {
+    toastWarning('Fetch list fail')
+  }
+}
+
+export const dispatchfetchLitsRecruitmentByEmployerID = (payload) => async (dispatch) => {
+  try {
+    const resp = await recruitmentsAPI.fetchLitsRecruitmentByEmployerID(payload)
+    const { data } = resp
+    dispatch(fetchListRecruitmentByEmployerIDSuccess(get(data, 'result', {})))
+  } catch (err) {
+    toastWarning('Fetch list fail')
+  }
+}
+
+export const dispatchfetchDetailRecruitment = (payload) => async (dispatch) => {
+  try {
+    const resp = await recruitmentsAPI.fetchDetailRecruitment(payload)
+    const { data } = resp
+    const result = head(get(data, 'result', [])) || {}
+    dispatch(fetchDetailRecruitmentSuccess(result))
   } catch (err) {
     toastWarning('Fetch list fail')
   }

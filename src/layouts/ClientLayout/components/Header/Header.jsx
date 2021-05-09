@@ -47,7 +47,7 @@ function Header() {
     >
       <RouterLink
         className="dropdown-item"
-        to="/"
+        to="/candidate-dashboard"
       >
         Quản lý thông tin
       </RouterLink>

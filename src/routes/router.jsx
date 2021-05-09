@@ -4,10 +4,12 @@ import React, { Suspense } from 'react'
 import { Router } from 'react-router-dom'
 import { v4 } from 'uuid'
 import AuthRoute from './AuthRoute'
+import ProtectedRoute from './ProtectedRoute'
 import PublicRoute from './PublicRoute'
-import { AuthRoutes, PublicRoutes } from './routeConfigs'
+import { AuthRoutes, ProtectedRoutes, PublicRoutes } from './routeConfigs'
 
 export default function Routers() {
+  console.log('ProtectedRoutes', ProtectedRoutes)
   return (
     <Router history={history}>
       <Suspense fallback="loading">
@@ -19,6 +21,11 @@ export default function Routers() {
         {
             PublicRoutes.map((item) => (
               <PublicRoute key={v4()} {...item} />
+            ))
+        }
+        {
+            ProtectedRoutes.map(item => (
+              <ProtectedRoute key={v4()} {...item} />
             ))
         }
       </Suspense>

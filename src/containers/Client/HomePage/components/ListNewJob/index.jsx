@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 import { permissionSelector } from 'stores/moduleAuth/selectors'
 // import { userIDSelector } from 'stores/moduleAuth/selectors'
-import { listRecruitmentOrderSelector } from 'stores/moduleRecruitment/selectors'
-import { fetchListRecruitmentOrderRequest } from 'stores/moduleRecruitment/thunks'
+import { detailRecruimentSelector, listRecruitmentOrderSelector } from 'stores/moduleRecruitment/selectors'
+import { dispatchfetchDetailRecruitment, fetchListRecruitmentOrderRequest } from 'stores/moduleRecruitment/thunks'
 import { v4 } from 'uuid'
 // import { checkRole } from '../../../../../../helper/checkRole'
 // import { getAccessToken } from '../../../../../../helper/localStorage'
@@ -34,7 +34,7 @@ import './style.scss'
 
 export default function ListNewJob() {
   const recruitmentOrder = useSelector(listRecruitmentOrderSelector)
-  console.log('recruitmentOrder', recruitmentOrder)
+  const detailRecruitment = useSelector(detailRecruimentSelector)
   const permission = useSelector(permissionSelector)
   //  const userID = useSelector(userIDSelector)
   const dispatch = useDispatch()
@@ -43,7 +43,7 @@ export default function ListNewJob() {
   //   (state) => state.recruitment.detailRecruitment,
   // )
   // const datas = detailRecruitment.result[0]
-  const datas = {}
+  const datas = detailRecruitment
 
   const [visible, setVisible] = useState(false)
   const [visibleChild, setVisibleChild] = useState(false)
@@ -88,10 +88,10 @@ export default function ListNewJob() {
   // const addCv = () => {
   //   history.push('/cv')
   // }
-  const handleDeitalRecruitment = () => {
+  const handleDeitalRecruitment = (id) => {
     // setRecruitmentid(id)
     setVisible(true)
-    // dispatch(getDetailRecruitmentRequest(id))
+    dispatch(dispatchfetchDetailRecruitment(id))
 
     // history.push(`/recruitments/${id}`);
   }
@@ -270,7 +270,7 @@ export default function ListNewJob() {
             <h5>{datas.vacancy}</h5>
           </Row>
           <Row>
-            <Col span={12}>
+            <Col className="info-recruitment" span={12}>
               <p>
                 Số lượng:
                 {datas.quantity}
@@ -284,7 +284,7 @@ export default function ListNewJob() {
                 {datas.type_of_work}
               </p>
             </Col>
-            <Col span={12}>
+            <Col className="info-recruitment" span={12}>
               <p>
                 Mức lương:
                 {datas.salary}
@@ -296,7 +296,7 @@ export default function ListNewJob() {
             </Col>
           </Row>
           <Row>
-            <Col span={24}>
+            <Col className="info-recruitment" span={24}>
               <p>
                 Mô tả:
                 {datas.description}
@@ -329,7 +329,7 @@ export default function ListNewJob() {
             <h5>{datas.company}</h5>
           </Row>
           <Row>
-            <Col span={24}>
+            <Col className="info-recruitment" span={24}>
               <p>
                 Website:
                 {datas.website}

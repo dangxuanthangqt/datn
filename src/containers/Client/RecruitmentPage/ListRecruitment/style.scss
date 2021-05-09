@@ -1,0 +1,73 @@
+.recruitment {
+  background-color: #f7f7f7;
+  padding: 20px 0;
+  &__title {
+    background-color: #23afef;
+    padding: 10px 5px;
+    h2 {
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 0 !important;
+    }
+  }
+  &__content {
+    padding: 10px;
+    margin: 20px 0;
+    box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.27);
+    }
+  }
+  .btn__recruitment_custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    Button:first-child {
+      height: 50%;
+      background-color: #db545a;
+    }
+    Button {
+      background-color: #23afef;
+      color: white;
+      font-weight: bold;
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
+}
+.pagination__recruitment {
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+}
+.custom-notical {
+  background-color: tomato;
+}
+.drawer-recruitment {
+  .ant-drawer-body {
+    padding: 10px 24px !important;
+  }
+  .ant-drawer-wrapper-body {
+    padding-top: 70px !important;
+  }
+}
+.detail-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  h5 {
+    margin-left: 15px;
+  }
+}
+
+.ant-result {
+  padding: 120px 32px;
+}
+
+.info-recruitment {
+  p {
+    margin-bottom: 15px;
+  }
+}

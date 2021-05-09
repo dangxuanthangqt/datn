@@ -13,10 +13,10 @@ const dataMasterSlice = createSlice({
     fetchListCitySuccess: (state, { payload }) => {
       state.listCity = payload
     },
-    fetListRankSuccess: (state, { payload }) => {
+    fetchListRankSuccess: (state, { payload }) => {
       state.listRank = payload
     },
-    fetListCareerSuccess: (state, { payload }) => {
+    fetchListCareerSuccess: (state, { payload }) => {
       state.listCareer = payload
     },
   },
