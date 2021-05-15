@@ -3,6 +3,7 @@ import { lazy } from 'react'
 import ClientLayout from 'layouts/ClientLayout'
 import CandidateDashboard from 'layouts/CandidateDashboard'
 import roles from 'constants/roles'
+import CV from 'layouts/CV'
 import { routes } from './routes'
 
 export const AuthRoutes = [
@@ -71,6 +72,28 @@ export const ProtectedRoutes = [
         path: routes.candidateDashboardPage.path,
         exact: true,
         component: lazy(() => import('containers/Client/CandidateDashboard')),
+      },
+      {
+        title: 'Danh sach CV',
+        key: 'candidate-dashboard/list-cv',
+        path: routes.listCVPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/CandidateDashboard/components/ListCv')),
+      },
+    ],
+    permission: [
+      roles.Candidate,
+    ],
+  },
+  {
+    layout: CV,
+    subRoutes: [
+      {
+        title: 'Tạo CV ',
+        key: 'cv',
+        path: routes.cvPage.path,
+        exact: true,
+        component: lazy(() => import('containers/CV')),
       },
     ],
     permission: [

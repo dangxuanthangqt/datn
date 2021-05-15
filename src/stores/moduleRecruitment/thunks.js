@@ -24,7 +24,7 @@ export const fetchListRecruitmentOrderRequest = () => async (dispatch) => {
   try {
     const resp = await recruitmentsAPI.fetchRecruitmentOrder()
     const { data } = resp
-    dispatch(fetchListRecruitmentOrderSuccess(get(data, 'result', [])))
+    dispatch(fetchListRecruitmentOrderSuccess(data.result))
   } catch (erorr) {
     toastWarning('Fetch list fail')
   }

@@ -7,35 +7,21 @@ import {
 import roles from 'constants/roles'
 import { format } from 'date-fns'
 import { includes } from 'lodash'
-// import JwtDecode from 'jwt-decode'
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 import { permissionSelector } from 'stores/moduleAuth/selectors'
-// import { userIDSelector } from 'stores/moduleAuth/selectors'
 import { detailRecruimentSelector, listRecruitmentOrderSelector } from 'stores/moduleRecruitment/selectors'
 import { dispatchfetchDetailRecruitment, fetchListRecruitmentOrderRequest } from 'stores/moduleRecruitment/thunks'
 import { v4 } from 'uuid'
-// import { checkRole } from '../../../../../../helper/checkRole'
-// import { getAccessToken } from '../../../../../../helper/localStorage'
-// import {
-//   getCvByIdRequest,
-//   getCvByUserIdRequest,
-// } from '../../../../../../redux/actionCreators/cvActionCreator'
-// import {
-//   applyJobRequest,
-//   getDetailRecruitmentRequest,
-// } from '../../../../../../redux/actionCreators/recruitmentActionCreator'
-// import DetailCv from '../../../CandidateDashbroad/component/ListCv/DetailCv'
 import './style.scss'
-
-// import history from '../../../../../../helper/history'
 
 export default function ListNewJob() {
   const recruitmentOrder = useSelector(listRecruitmentOrderSelector)
   const detailRecruitment = useSelector(detailRecruimentSelector)
   const permission = useSelector(permissionSelector)
+  console.log('recruitmentOrder', recruitmentOrder)
   //  const userID = useSelector(userIDSelector)
   const dispatch = useDispatch()
   // detail
@@ -95,6 +81,7 @@ export default function ListNewJob() {
 
     // history.push(`/recruitments/${id}`);
   }
+  // eslint-disable-next-line no-unused-vars
   const renderListRecruitments = () => {
     let jsx = []
     if (recruitmentOrder.length > 0) {
@@ -164,12 +151,12 @@ export default function ListNewJob() {
                   </p>
                 </Col>
               </Row>
-              <Row>
+              {/* <Row>
                 <p>
                   Mô tả:
                   {item.description}
                 </p>
-              </Row>
+              </Row> */}
             </Col>
             <Col
               className="list-employers-home-button"
@@ -188,6 +175,7 @@ export default function ListNewJob() {
     }
     return jsx
   }
+  // eslint-disable-next-line no-unused-vars
   const dataNull = () => (
     <>
       <Skeleton avatar paragraph={{ rows: 4 }} />
@@ -430,7 +418,7 @@ export default function ListNewJob() {
           </Drawer>
         </Drawer>
 
-        {recruitmentOrder.length > 2 ? renderListRecruitments() : dataNull()}
+        { renderListRecruitments()}
       </Container>
     </div>
   )

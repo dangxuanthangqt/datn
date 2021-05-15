@@ -19,6 +19,14 @@ export const routes = {
     path: '/candidate-dashboard',
     build: () => 'candidate-dashboard',
   },
+  listCVPage: {
+    path: '/candidate-dashboard/list-cv',
+    build: () => 'candidate-dashboard/list-cv',
+  },
+  cvPage: {
+    path: '/cv',
+    build: () => 'cv',
+  },
   loginPage: {
     path: '/login',
     build: () => '/login',

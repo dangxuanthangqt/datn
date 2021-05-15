@@ -32,7 +32,6 @@ export default function InforCandidate() {
       ...value,
       avatar: value.avatar.fileList[0].thumbUrl,
     }
-    console.log('newValue', newValue)
     dispatch(dispatchUpdateInfoCandidateRequest(infoCandidate.id, newValue))
   }
 

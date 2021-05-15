@@ -18,7 +18,6 @@ export const dispatchFetchListRank = () => async (dispatch) => {
   try {
     const resp = await fetchListRankAPI()
     const { data } = resp
-    console.log('get(data', get(data, 'result'))
     dispatch(fetchListRankSuccess(get(data, 'result')))
   } catch (error) {
     toastWarning('fetch list rank fail')

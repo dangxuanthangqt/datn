@@ -19,9 +19,8 @@ export const UploadImage = (props) => {
 
   useEffect(() => {
     const thumbUrl = get(head(fileList), 'thumbUrl')
-
-    if (fileList.length && (thumbUrl === undefined || thumbUrl === 'https://ramenparados.com/wp-content/uploads/2019/03/no-avatar-png-8.png')) {
-      console.log('thang')
+    // fileList.length > 0 && ((thumbUrl === undefined || thumbUrl === 'https://ramenparados.com/wp-content/uploads/2019/03/no-avatar-png-8.png'))
+    if (fileList.length > 0 && ((thumbUrl === undefined || thumbUrl === 'https://ramenparados.com/wp-content/uploads/2019/03/no-avatar-png-8.png'))) {
       setFileList([
         {
           uid: '-1',
@@ -50,7 +49,7 @@ export const UploadImage = (props) => {
   }
 
   return (
-    <Form.Item name={name}>
+    <Form.Item name={name} initialValue={url}>
       <Upload
         className="upload-img"
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"

@@ -1,16 +1,19 @@
-import React from 'react'
+import { push } from 'connected-react-router'
 import PropTypes from 'prop-types'
-import { Redirect, Route, Switch } from 'react-router-dom'
-import { v4 } from 'uuid'
-import { useSelector } from 'react-redux'
-import { isAuthenticationSelector } from 'stores/moduleAuth/selectors'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Route, Switch } from 'react-router-dom'
 import { routes } from 'routes/routes'
+import { isAuthenticationSelector } from 'stores/moduleAuth/selectors'
+import { v4 } from 'uuid'
 
 export default function ProtectedRoute(props) {
   const { layout: Layout, subRoutes } = props
   const isAuthentication = useSelector(isAuthenticationSelector)
-  if (!isAuthentication) return <Redirect to={routes.loginPage.path} />
-  console.log('subRoutes', subRoutes)
+  // if (!isAuthentication) return <Redirect to={routes.loginPage.path} />
+  // useEffect(() => {
+  //   if (!isAuthentication) useDispatch(push(routes.loginPage.path))
+  // }, [])
   return (
     <Switch>
       {

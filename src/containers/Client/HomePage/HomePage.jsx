@@ -1,13 +1,12 @@
 import React from 'react'
-import Sliders from './components/Slider'
-import ListNewJob from './components/ListNewJob'
-import ListNewEmployer from './components/ListNewEmployer'
 // import { HandleChangeTitle } from '../../../../helper/handleTitle'
 // import Advertisement from "./component/advertisement";
 import Information from './components/Information'
+import ListNewEmployer from './components/ListNewEmployer'
+import ListNewJob from './components/ListNewJob'
+import Sliders from './components/Slider'
 
 function HomePage() {
-  console.log('hompage')
   return (
     <>
       {/* <HandleChangeTitle title="Trang chủ" /> */}

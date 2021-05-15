@@ -1,0 +1,242 @@
+.main-info {
+  font-family: 'Roboto', sans-serif !important;
+  position: relative;
+  padding: 5px 10px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
+  border: 1px solid transparent;
+  margin-bottom: 20px;
+  .btn-form-check-list {
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 10px 30px;
+    span {
+      font-size: 15px;
+    }
+  }
+  &:hover {
+    .btn-form-check-list {
+      display: flex;
+    }
+  }
+}
+.knowledge {
+  position: relative;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0;
+  border: 1px dashed transparent;
+  transition: 0.5s all;
+  .button-control-remove {
+    position: absolute;
+    top: 40%;
+    right: -20px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-color: #8a97a2;
+    color: white;
+    &:hover {
+      color: tomato;
+      background-color: white;
+      border: 1px solid tomato;
+    }
+  }
+  &__title {
+    padding: 5px;
+    display: flex;
+    &-icon {
+      font-size: 1rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background-color: tomato;
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+      border-radius: 50%;
+      color: white;
+      margin-right: 3px;
+    }
+    &-head {
+      display: block;
+      font-size: 1rem;
+      border: unset;
+      font-weight: 800;
+      width: 50%;
+      border: 1px dashed transparent;
+      resize: unset;
+
+      &:focus {
+        background-color: rgba(186, 248, 242, 0.3);
+        border: 1px dashed transparent !important;
+        box-shadow: none !important;
+      }
+      &:hover {
+        border: 1px dashed tomato;
+      }
+    }
+  }
+  &:hover {
+    .button-control-remove {
+      display: inline-flex;
+    }
+    border: 1px dashed #8a97a2;
+  }
+}
+
+.division {
+  margin: 0 10px 10px 40px;
+  position: relative;
+  &__title {
+    padding: 5px;
+    display: flex;
+    .ant-picker-focused {
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .data-picker-input {
+      .ant-picker-input > input {
+        font-size: 0.8rem;
+      }
+      font-size: 0.8rem !important;
+      border: unset;
+      background-color: transparent;
+      &:focus {
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+    &-input {
+      resize: unset;
+      color: #5c7189;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: unset;
+      overflow: hidden;
+      border: 1px dashed transparent !important;
+
+      &:focus {
+        background-color: rgba(186, 248, 242, 0.3);
+        border: 1px dashed transparent !important;
+        box-shadow: none !important;
+      }
+      &:hover {
+        border: 1px dashed black !important;
+      }
+    }
+  }
+  &__input {
+    width: 98%;
+    padding: 3px 5px;
+    margin: 0 10px;
+    margin-bottom: 3px;
+    color: #7c8c9e;
+    resize: unset;
+    font-size: 0.8rem;
+    font-weight: normal;
+    border: unset;
+    overflow: hidden;
+    border: 1px dashed transparent !important;
+    &:focus {
+      background-color: rgba(186, 248, 242, 0.3);
+      border: 1px dashed transparent !important;
+      box-shadow: none !important;
+    }
+    &:hover {
+      border: 1px dashed tomato !important;
+    }
+    &-textArea {
+      width: 98%;
+      padding: 3px 5px;
+      margin: 0 10px;
+      margin-bottom: 3px;
+      color: #7c8c9e;
+      resize: unset;
+      font-size: 0.8rem;
+      font-weight: normal;
+      border: unset;
+      overflow: hidden;
+      border: 1px dashed transparent !important;
+      &:focus {
+        background-color: rgba(186, 248, 242, 0.3);
+        border: 1px dashed transparent !important;
+        box-shadow: none !important;
+      }
+      &:hover {
+        border: 1px dashed tomato !important;
+      }
+    }
+  }
+
+  .button-control {
+    position: absolute;
+    top: -15px;
+    right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 0.3rem;
+    display: none;
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      font-size: 0.5rem;
+      margin: 0 5px;
+    }
+  }
+
+  &:hover {
+    .button-control {
+      display: inline-flex;
+    }
+    border: 1px dashed gray;
+  }
+}
+.tooltip-custom {
+  font-size: 0.5rem !important;
+}
+.form-checked {
+  display: grid;
+  grid-gap: 3px;
+
+  grid-template-columns: repeat(3, 1fr);
+}
+.list-form-custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #5c7189;
+
+  &-checked {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 50%;
+    &-content {
+      span {
+        color: white;
+        font-size: 0.7rem;
+        &:first-child {
+          padding: 0 2px;
+        }
+      }
+    }
+  }
+}

@@ -9,7 +9,6 @@ import PublicRoute from './PublicRoute'
 import { AuthRoutes, ProtectedRoutes, PublicRoutes } from './routeConfigs'
 
 export default function Routers() {
-  console.log('ProtectedRoutes', ProtectedRoutes)
   return (
     <Router history={history}>
       <Suspense fallback="loading">

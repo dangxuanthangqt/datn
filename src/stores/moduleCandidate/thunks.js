@@ -29,7 +29,6 @@ export const dispatchUpdateInfoCandidateRequest = (id, data) => async (dispatch)
   const userID = get(store.getState(), 'authState.user.id')
   try {
     const resp = await updateInfoCandidateByUserIdAPI(id, data)
-    console.log('resp', resp)
     dispatch(dispatchFetchInfoCandidateRequest(userID))
   } catch (error) {
     toastWarning('update info candidate fail')

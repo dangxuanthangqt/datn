@@ -1,8 +1,7 @@
-import { push } from 'connected-react-router'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { isAuthenticationSelector } from 'stores/moduleAuth/selectors'
 import { v4 } from 'uuid'
@@ -11,10 +10,13 @@ const AuthRoute = (props) => {
   const { layout: Layout, subRoutes } = props
   const isAuthentication = useSelector(isAuthenticationSelector)
   // eslint-disable-next-line consistent-return
-  const dispatch = useDispatch()
-  useEffect(() => {
-    if (isAuthentication) dispatch(push(routes.homePage.path))
-  }, [])
+  // const dispatch = useDispatch()
+  // // useEffect(() => {
+  // //   if (isAuthentication) {
+  // //     console.log('dasd')
+  // //     dispatch(push(routes.homePage.path))
+  // //   }
+  // // }, [])
   return (
     <Switch>
       {
@@ -23,11 +25,14 @@ const AuthRoute = (props) => {
             key={v4()}
             path={item.path}
             exact={item.exact}
-            render={() => (
-              <Layout>
-                <item.component />
-              </Layout>
-            )}
+            render={() => {
+              if (isAuthentication) return <Redirect to={routes.homePage.path} />
+              return (
+                <Layout>
+                  <item.component />
+                </Layout>
+              )
+            }}
           />
         ))
     }

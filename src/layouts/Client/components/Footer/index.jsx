@@ -35,7 +35,7 @@ export default function Footer() {
               <div className="img-footer-contact">
                 <p>Liên hệ để đăng tin tuyển dụng:</p>
                 <p>SDT: 0989679562</p>
-                <p>Email: trankimhoang1998@gmail.com</p>
+                <p>Email: emailgmail.com</p>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6 col-md-6  img-footer">
