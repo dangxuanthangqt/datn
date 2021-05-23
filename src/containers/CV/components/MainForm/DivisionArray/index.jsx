@@ -55,7 +55,7 @@ function DivisionArray(props) {
         return (
 
           <div key={item.id} className="division">
-            { (item.description !== null) && (
+            { (item.description || item.description === '') && (
             <div className="division__title">
               <Controller
                 control={control}
@@ -101,7 +101,7 @@ function DivisionArray(props) {
                )
             }
 
-            { (item.subdesc !== null) && (
+            { (item.subdesc || item.subdesc === '') && (
             <Controller
               control={control}
               defaultValue={item.subdesc}
@@ -117,7 +117,7 @@ function DivisionArray(props) {
             />
             )}
             {
-            (item.nameSkill !== null) && (
+            (item.nameSkill || item.nameSkill === '') && (
             <>
               <Controller
                 control={control}
@@ -149,7 +149,7 @@ function DivisionArray(props) {
             )
             }
             {
-              (item.detailInfo !== null) && (
+              (item.detailInfo || item.detailInfo === '') && (
               <Controller
                 defaultValue={item.detailInfo}
                 control={control}

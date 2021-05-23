@@ -59,6 +59,13 @@ export const PublicRoutes = [
         exact: true,
         component: lazy(() => import('containers/Client/EmployerPage/components/EmployerDetail')),
       },
+      {
+        title: 'Ung vien',
+        key: 'candidate',
+        path: routes.candidatePage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/CandidatePage')),
+      },
     ],
   },
 ]
@@ -80,6 +87,14 @@ export const ProtectedRoutes = [
         exact: true,
         component: lazy(() => import('containers/Client/CandidateDashboard/components/ListCv')),
       },
+      {
+        title: 'Danh sach cong viec',
+        key: 'candidate-dashboard/list-job',
+        path: routes.listJobApply.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/CandidateDashboard/components/ListJobApply')),
+      },
+
     ],
     permission: [
       roles.Candidate,

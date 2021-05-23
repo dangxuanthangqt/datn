@@ -72,13 +72,13 @@ export default function TemplateCV(props) {
               </div>
             </Col>
             <Col span={8} className="template-cv_content-dep custom-line">
-              <Form.Item name="fullName" initialValue={data.name}>
+              <Form.Item name="fullName" initialValue={data.fullName || data.name}>
                 <TextArea
                   autoComplete="off"
                   className="text-area-input-cus-xs"
                 />
               </Form.Item>
-              <Form.Item name="potision" initialValue={data.position}>
+              <Form.Item name="position" initialValue={data.position}>
                 <TextArea className="text-area-input-cus-sm" />
               </Form.Item>
             </Col>
@@ -107,7 +107,7 @@ export default function TemplateCV(props) {
                 <DatePicker className="text-area-input-cus-sm" />
               </Form.Item>
               <span style={{ marginTop: '15px' }}>LOCATION</span>
-              <Form.Item name="location" initialValue={data.address}>
+              <Form.Item name="location" initialValue={data.location || data.address}>
                 <TextArea
                   className="text-area-input-cus-sm"
                   style={{ padding: 0, margin: 0, fontSize: '14px' }}

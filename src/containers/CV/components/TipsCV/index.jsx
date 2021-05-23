@@ -5,17 +5,18 @@ import { CheckOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { userIDSelector } from 'stores/moduleAuth/selectors'
-import { dispatchAddCVRequest } from 'stores/moduleCv/thunks'
+import { dispatchAddCVRequest, dispatchUpdateCVRequest } from 'stores/moduleCv/thunks'
 import { toastWarning } from 'helpers/toastify'
-import { isArray } from 'lodash'
+import { isArray, isEmpty } from 'lodash'
 
 export default function TipsCV(props) {
   const userId = useSelector(userIDSelector)
-  const { getValues, form } = props
+  const { getValues, form, detailCV } = props
 
   const dispatch = useDispatch()
   const onSubmit = () => {
     const data = getValues().dataCV
+    console.log('data', data)
     const {
       birthday, email, fullName, location, phone, position, title, avatar,
     } = form.getFieldValue()
@@ -49,7 +50,9 @@ export default function TipsCV(props) {
       avatar: isArray(avatar.fileList) ? avatar.fileList[0].thumbUrl : avatar,
       object: newData,
     }
-    dispatch(dispatchAddCVRequest(value))
+    if (isEmpty(detailCV)) {
+      dispatch(dispatchAddCVRequest(value))
+    } else dispatch(dispatchUpdateCVRequest(detailCV.id, value))
   }
 
   return (
@@ -96,4 +99,5 @@ export default function TipsCV(props) {
 TipsCV.propTypes = {
   getValues: PropTypes.func,
   form: PropTypes.object,
+  detailCV: PropTypes.object,
 }

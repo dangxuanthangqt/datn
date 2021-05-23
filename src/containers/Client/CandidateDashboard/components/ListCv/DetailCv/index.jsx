@@ -278,8 +278,8 @@ export default function DetailCv(props) {
             </div>
           </Col>
           <Col span={8} className="candidates_content-dep custom-line">
-            <h4>{dataUser?.full_name}</h4>
-            <p>{dataUser?.potision}</p>
+            <h4>{dataUser?.fullName}</h4>
+            <p>{dataUser?.position}</p>
           </Col>
           <Col span={6} className="candidates_content-dep custom-line">
             <span>EMAIL</span>

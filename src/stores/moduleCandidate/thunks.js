@@ -1,8 +1,22 @@
-import { dashboardCandidateAPI, getInfoCandidateByUserIdAPI, updateInfoCandidateByUserIdAPI } from 'api/candidateAPI'
-import { toastWarning } from 'helpers/toastify'
+import {
+  dashboardCandidateAPI,
+  deleteApplyJobAPI,
+  getCandidateAPI,
+  getDetailCandidateAPI,
+  getInfoCandidateByUserIdAPI,
+  getRecruimentApplyByUserIdAPI,
+  updateInfoCandidateByUserIdAPI,
+} from 'api/candidateAPI'
+import { toastSuccess, toastWarning } from 'helpers/toastify'
 import { get, head } from 'lodash'
 import Store from 'stores/store'
-import { dispatchFetchDashboardCandidateSuccess, dispatchFetchInfoCandidateSuccess } from './slices'
+import {
+  dispatchFetchDashboardCandidateSuccess,
+  dispatchFetchListRecruitmentApplySuccess,
+  dispatchFetchInfoCandidateSuccess,
+  dispatchFetchListCandidateSuccess,
+  dispatchFetchDetailCandidateSuccess,
+} from './slices'
 
 export const dispatchFetchDashboardCandidateRequest = (id) => async (dispatch) => {
   try {
@@ -32,5 +46,47 @@ export const dispatchUpdateInfoCandidateRequest = (id, data) => async (dispatch)
     dispatch(dispatchFetchInfoCandidateRequest(userID))
   } catch (error) {
     toastWarning('update info candidate fail')
+  }
+}
+
+export const dispatchFetchListRecruitmentApply = (data) => async (dispatch) => {
+  try {
+    const resp = await getRecruimentApplyByUserIdAPI(data)
+    dispatch(dispatchFetchListRecruitmentApplySuccess(get(resp, 'data.result')))
+  } catch (error) {
+    toastWarning('Fetch list recruitment apply fail')
+  }
+}
+
+export const dispatchDeleteApplyJobRequest = (data) => async (dispatch) => {
+  const { store } = Store
+  const userID = get(store.getState(), 'authState.user.id')
+  try {
+    const resp = await deleteApplyJobAPI(data)
+    dispatch(dispatchFetchListRecruitmentApply({
+      id: userID, vacancy: '', limit: 5, page: 1,
+    }))
+    toastSuccess('Hủy thành công')
+  } catch (err) {
+    toastWarning('delete error')
+  }
+}
+
+export const dispatchFetchListCandidate = (data) => async (dispatch) => {
+  try {
+    const resp = await getCandidateAPI(data)
+    dispatch(dispatchFetchListCandidateSuccess(get(resp, 'data.result', {})))
+  } catch (error) {
+    toastWarning('Fetch list candidate fail !')
+  }
+}
+
+export const dispatchFetchDetailCandidate = (id) => async (dispatch) => {
+  try {
+    const resp = await getDetailCandidateAPI(id)
+    const result = head(get(resp, 'data.result', [])) || {}
+    dispatch(dispatchFetchDetailCandidateSuccess(result))
+  } catch (err) {
+    toastWarning('Fetch detail fail')
   }
 }

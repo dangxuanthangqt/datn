@@ -32,6 +32,18 @@ export const UploadImage = (props) => {
       ])
     }
   })
+  useEffect(() => {
+    // Set new URL when update CV
+    setFileList([
+      {
+        uid: '-1',
+        name: 'avatar.img',
+        status: 'done',
+        url,
+        thumbUrl: url,
+      },
+    ])
+  }, [url])
 
   const onPreview = async (file) => {
     let src = file.url

@@ -40,7 +40,6 @@ const AuthRoute = (props) => {
   )
 }
 AuthRoute.propTypes = {
-  layout: PropTypes.element,
   subRoutes: PropTypes.array,
 }
 export default AuthRoute

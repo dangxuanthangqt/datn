@@ -1,5 +1,5 @@
 import {
-  addCvAPI, deleteCvAPI, getCvByUserIdAPI, getDetailCvAPI,
+  addCvAPI, deleteCvAPI, getCvByUserIdAPI, getDetailCvAPI, updateCvAPI,
 } from 'api/cvAPI'
 import { push } from 'connected-react-router'
 import { toastSuccess, toastWarning } from 'helpers/toastify'
@@ -53,7 +53,17 @@ export const dispatchFetchDetailCvRequest = (id) => async (dispatch) => {
     }
     dispatch(fetchDetailCvSuccess(result))
   } catch (error) {
-    console.log('error', error)
     toastWarning('Lấy thông tin chi tiết thất bại')
+  }
+}
+
+export const dispatchUpdateCVRequest = (id, data) => async (dispatch) => {
+  try {
+    // eslint-disable-next-line no-unused-vars
+    const resp = await updateCvAPI(id, data)
+    toastSuccess('Cập nhật CV thành công')
+    dispatch(push('/candidate-dashboard/list-cv'))
+  } catch (err) {
+    toastWarning('Cập nhật CV thất bại')
   }
 }

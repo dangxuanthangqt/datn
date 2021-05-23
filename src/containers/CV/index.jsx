@@ -2,6 +2,7 @@ import { UnorderedListOutlined } from '@ant-design/icons'
 import {
   Button, Checkbox, Col, Form, Modal, Row,
 } from 'antd'
+import { get, isEmpty } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
@@ -9,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userIDSelector } from 'stores/moduleAuth/selectors'
 import { infoCandidateSelector } from 'stores/moduleCandidate/selectors'
 import { dispatchFetchInfoCandidateRequest } from 'stores/moduleCandidate/thunks'
+import { detailCVSelector } from 'stores/moduleCv/selectors'
+import { resetDetailCV } from 'stores/moduleCv/slices'
 import TemplateCV from './components/TemplateCV'
 import './components/TemplateCV/style.scss'
 import TipsCV from './components/TipsCV'
@@ -17,13 +20,16 @@ import './style.scss'
 import MainForm from './components/MainForm'
 
 function CV() {
+  const detailCV = useSelector(detailCVSelector)
+  const dataCV = get(detailCV, 'object.dataCV')
+  const dataUser = get(detailCV, 'object.dataUser')
   const defaultValues = { dataCV: dataCV1 }
   const {
     control,
-    handleSubmit,
     getValues,
     setValue,
     register,
+    reset,
   } = useForm({
     mode: 'onSubmit',
     defaultValues,
@@ -40,11 +46,15 @@ function CV() {
   const infoCandidate = useSelector(infoCandidateSelector)
   const userID = useSelector(userIDSelector)
 
-  useEffect(() => {
-    dispatch(dispatchFetchInfoCandidateRequest(userID))
+  useEffect(() => () => {
+    dispatch(resetDetailCV())
   }, [])
+  useEffect(() => {
+    if (isEmpty(detailCV)) { dispatch(dispatchFetchInfoCandidateRequest(userID)) }
+    if (!isEmpty(detailCV)) { reset({ dataCV }) }
+  }, [detailCV])
 
-  useEffect(() => form.resetFields(), [infoCandidate]) // reset value init
+  useEffect(() => form.resetFields(), [infoCandidate, detailCV]) // reset value init
 
   const renderCheckList = () => {
     let jsx = []
@@ -90,7 +100,11 @@ function CV() {
       <Row>
         <Col span={16}>
           <Form form={form}>
-            <TemplateCV data={infoCandidate} />
+            <TemplateCV data={
+              isEmpty(detailCV) ? infoCandidate
+                : { avatar: detailCV.avatar, title: detailCV.title, ...dataUser }
+              }
+            />
           </Form>
 
           <div className="main-info">
@@ -111,7 +125,7 @@ function CV() {
           </div>
         </Col>
         <Col span={8}>
-          <TipsCV form={form} getValues={getValues} />
+          <TipsCV form={form} detailCV={detailCV} getValues={getValues} />
         </Col>
       </Row>
 

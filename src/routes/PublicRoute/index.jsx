@@ -25,6 +25,5 @@ export default function ProtectedRoute(props) {
   )
 }
 ProtectedRoute.propTypes = {
-  layout: PropTypes.element,
   subRoutes: PropTypes.array,
 }

@@ -1,46 +1,41 @@
 import {
+  ExclamationCircleOutlined,
   GlobalOutlined,
   HomeOutlined,
   IdcardOutlined, PhoneOutlined,
 } from '@ant-design/icons'
 import {
-  Avatar, Badge, Button, Col, Drawer, Pagination, Row, Tag,
+  Avatar, Badge, Button, Col, Drawer, Pagination, Row, Tag, Modal,
 } from 'antd'
 import { DataNull } from 'components/DataNull'
+import roles from 'constants/roles'
+import DetailCv from 'containers/Client/CandidateDashboard/components/ListCv/DetailCv'
+import history from 'helpers/history'
+import { includes } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { permissionSelector, userIDSelector } from 'stores/moduleAuth/selectors'
+import { detailCVSelector, listCvByUserSelector } from 'stores/moduleCv/selectors'
+import { dispatchFetchCvByUserIdRequest, dispatchFetchDetailCvRequest } from 'stores/moduleCv/thunks'
 import { infoEmployerSelector } from 'stores/moduleEmployer/selectors'
 import { fetchInfoEmployerRequest } from 'stores/moduleEmployer/thunks'
 import { detailRecruimentSelector, listRecruitmentByUserIDSelector } from 'stores/moduleRecruitment/selectors'
-import { dispatchfetchDetailRecruitment, dispatchfetchLitsRecruitmentByEmployerID } from 'stores/moduleRecruitment/thunks'
+import { dispatchApplyJob, dispatchfetchDetailRecruitment, dispatchfetchLitsRecruitmentByEmployerID } from 'stores/moduleRecruitment/thunks'
 import { v4 } from 'uuid'
 import './style.scss'
-
-// import '../../../HomePages/component/listNewJob/index.scss'
-// import { dataNull } from '../../../../../../helper/dataNull'
-// import {
-//   applyJobRequest,
-//   getDetailRecruitmentRequest,
-// } from '../../../../../../redux/actionCreators/recruitmentActionCreator'
-// import { checkRole } from '../../../../../../helper/checkRole'
-// import {
-//   getCvByIdRequest,
-//   getCvByUserIdRequest,
-// } from '../../../../../../redux/actionCreators/cvActionCreator'
-// import { getAccessToken } from '../../../../../../helper/localStorage'
-// import DetailCv from '../../../CandidateDashbroad/component/ListCv/DetailCv'
-
-// import history from '../../../../../../helper/history'
 
 export default function EmployerDetail() {
   const { id } = useParams()
 
   const [current, setCurrent] = useState(1)
-
+  const userId = useSelector(userIDSelector)
   const dispatch = useDispatch()
-  // const permission = useSelector(permissionSelector)
+  const permission = useSelector(permissionSelector)
+  const listCvByUserId = useSelector(listCvByUserSelector)
+  const detailCV = useSelector(detailCVSelector)
+
   const inforDetailEmployer = useSelector(infoEmployerSelector)
   const listRecruitmentByEmployerId = useSelector(listRecruitmentByUserIDSelector)
 
@@ -53,7 +48,7 @@ export default function EmployerDetail() {
   const data = inforDetailEmployer
   const dataJob = listRecruitmentByEmployerId.data || []
   const { total } = listRecruitmentByEmployerId
-  // const [recruitmentid, setRecruitmentid] = useState(1)
+  const [recruitmentid, setRecruitmentid] = useState(1)
 
   const handleChangePage = (value) => {
     setCurrent(value)
@@ -62,7 +57,7 @@ export default function EmployerDetail() {
 
   const [visible, setVisible] = useState(false)
   const [visibleChild, setVisibleChild] = useState(false)
-  // const [visibleChilds, setVisibleChilds] = useState(false)
+  const [visibleChilds, setVisibleChilds] = useState(false)
 
   const onClose = () => {
     setVisible(false)
@@ -72,34 +67,36 @@ export default function EmployerDetail() {
     setVisibleChild(false)
   }
 
-  // const onClosess = () => {
-  //   setVisibleChilds(false)
-  // }
+  const onClosess = () => {
+    setVisibleChilds(false)
+  }
 
   const onChildrenDrawerClose = () => {
     setVisibleChild(false)
   }
 
-  // const onChildrensDrawerClose = () => {
-  //   setVisibleChilds(false)
-  // }
+  const onChildrensDrawerClose = () => {
+    setVisibleChilds(false)
+  }
 
   // const showChildrensDrawer = (id) => {
   //   dispatch(getCvByIdRequest(id))
   //   setVisibleChilds(true)
   // }
-
-  // const handleApplyCV = (item) => {
-  //   Modal.confirm({
-  //     title: 'Thông báo',
-  //     icon: <ExclamationCircleOutlined />,
-  //     content: `Bạn có muốn apply CV ${item.title}`,
-  //     okText: 'Xác Nhận',
-  //     onOk: () => handelApply(item.id),
-  //     cancelText: 'Hủy',
-  //   })
-  // }
-
+  const handelApply = (cvID) => {
+    const dataApply = { cv_id: cvID, recruitment_id: recruitmentid }
+    dispatch(dispatchApplyJob(dataApply))
+  }
+  const handleApplyCV = (item) => {
+    Modal.confirm({
+      title: 'Thông báo',
+      icon: <ExclamationCircleOutlined />,
+      content: `Bạn có muốn apply CV ${item.title}`,
+      okText: 'Xác Nhận',
+      onOk: () => handelApply(item.id),
+      cancelText: 'Hủy',
+    })
+  }
   // const handelApply = (id) => {
   //   const data = { cv_id: id, recruitment_id: recruitmentid }
   //   dispatch(applyJobRequest(data))
@@ -116,20 +113,25 @@ export default function EmployerDetail() {
 
   // const listCvByUserId = useSelector((state) => state.cv.listCvByUserId)
 
-  // const showChildrenDrawer = () => {
-  //   dispatch(getCvByUserIdRequest(idUser))
-  //   setVisibleChild(true)
-  // }
+  const showChildrensDrawer = (CVid) => {
+    dispatch(dispatchFetchDetailCvRequest(CVid))
+    setVisibleChilds(true)
+  }
+
+  const showChildrenDrawer = () => {
+    dispatch(dispatchFetchCvByUserIdRequest(userId))
+    setVisibleChild(true)
+  }
 
   const handleDeitalRecruitment = (_id) => {
-    // setRecruitmentid(id)
+    setRecruitmentid(_id)
     setVisible(true)
     dispatch(dispatchfetchDetailRecruitment(_id))
   }
 
-  // const addCv = () => {
-  //   history.push('/cv')
-  // }
+  const addCv = () => {
+    history.push('/cv')
+  }
 
   const detailRecruitment = useSelector(
     detailRecruimentSelector,
@@ -372,13 +374,13 @@ export default function EmployerDetail() {
                 <Button onClick={onClose} style={{ marginRight: 8 }}>
                   Hủy
                 </Button>
-                {/* {includes(permission,roles.Candidate) ? (
+                {includes(permission, roles.Candidate) ? (
                   <Button type="primary" onClick={showChildrenDrawer}>
                     Ứng tuyển
                   </Button>
                 ) : (
                   ''
-                )} */}
+                )}
               </div>
             )}
           >
@@ -482,16 +484,16 @@ export default function EmployerDetail() {
                   <Button onClick={onCloses} style={{ marginRight: 8 }}>
                     Hủy
                   </Button>
-                  <Button type="primary">
+                  {/* <Button type="primary">
                     Thêm CV
-                  </Button>
+                  </Button> */}
                 </div>
               )}
             >
-              {/* {listCvByUserId.result.map((item, key) => (
+              {listCvByUserId.map((item) => (
                 <Row
                   className="detail-content"
-                  key={key}
+                  key={v4()}
                   style={{ margin: '10px 20px', alignItems: 'center' }}
                 >
                   <Col span={8}>
@@ -517,9 +519,9 @@ export default function EmployerDetail() {
                     </Button>
                   </Col>
                 </Row>
-              ))} */}
+              ))}
 
-              {/* <Drawer
+              <Drawer
                 title="Chi tiết CV"
                 width={1000}
                 closable={false}
@@ -539,11 +541,9 @@ export default function EmployerDetail() {
                 )}
               >
                 <DetailCv
-                  dataUser={dataUser}
-                  detailCv={detailCv}
-                  dataCV={dataCV}
+                  detailCV={detailCV}
                 />
-              </Drawer> */}
+              </Drawer>
             </Drawer>
           </Drawer>
           <div>

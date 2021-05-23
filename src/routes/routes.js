@@ -21,11 +21,19 @@ export const routes = {
   },
   listCVPage: {
     path: '/candidate-dashboard/list-cv',
-    build: () => 'candidate-dashboard/list-cv',
+    build: () => '/candidate-dashboard/list-cv',
+  },
+  listJobApply: {
+    path: '/candidate-dashboard/list-job',
+    build: () => '/candidate-dashboard/list-job',
   },
   cvPage: {
     path: '/cv',
-    build: () => 'cv',
+    build: () => '/cv',
+  },
+  candidatePage: {
+    path: '/candidate',
+    build: () => '/candidate',
   },
   loginPage: {
     path: '/login',

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import {
   Avatar,
   Badge,
@@ -9,9 +10,11 @@ import {
   Row,
   Skeleton,
   Tag,
+  Modal,
 } from 'antd'
 
 import { DataNull } from 'components/DataNull'
+import DetailCv from 'containers/Client/CandidateDashboard/components/ListCv/DetailCv'
 // import DetailCv from '../../../CandidateDashbroad/component/ListCv/DetailCv'
 import 'containers/Client/HomePage/components/ListNewJob/style.scss'
 import { format } from 'date-fns'
@@ -19,25 +22,31 @@ import { includes } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import { useDispatch, useSelector } from 'react-redux'
-import { permissionSelector } from 'stores/moduleAuth/selectors'
+import { permissionSelector, userIDSelector } from 'stores/moduleAuth/selectors'
+import { detailCVSelector, listCvByUserSelector } from 'stores/moduleCv/selectors'
+import { dispatchFetchCvByUserIdRequest, dispatchFetchDetailCvRequest } from 'stores/moduleCv/thunks'
 import { dataListRecruitment, detailRecruimentSelector, totalSelector } from 'stores/moduleRecruitment/selectors'
-import { dispatchfetchLitsRecruitmentByEmployerID, fetchListRecruitment } from 'stores/moduleRecruitment/thunks'
+import {
+  dispatchApplyJob,
+  dispatchfetchDetailRecruitment,
+  dispatchfetchLitsRecruitmentByEmployerID, fetchListRecruitment,
+} from 'stores/moduleRecruitment/thunks'
 import { v4 } from 'uuid'
 import './style.scss'
 
 function ListRecruitment(props) {
   const { formState, handleCurrent, current } = props
   const dispatch = useDispatch()
-
-  // const UserID = useSelector(userIDSelector)
+  const detailCV = useSelector(detailCVSelector)
+  const UserID = useSelector(userIDSelector)
   const permission = useSelector(permissionSelector)
-  // const recruitment = useSelector(listRecruitmentSelector)
+  const listCvByUserId = useSelector(listCvByUserSelector)
   const dataRecruitment = useSelector(dataListRecruitment)
+
   const total = useSelector(totalSelector)
   const detailRecruitment = useSelector(detailRecruimentSelector)
   useEffect(() => {
     if (formState) {
-      console.log('co chay vao day')
       dispatch(
         fetchListRecruitment({
           ...formState,
@@ -63,7 +72,7 @@ function ListRecruitment(props) {
   const [visible, setVisible] = useState(false)
   const [visibleChild, setVisibleChild] = useState(false)
   const [visibleChilds, setVisibleChilds] = useState(false)
-  // const [recruitmentid, setRecruitmentid] = useState(1)
+  const [recruitmentid, setRecruitmentid] = useState(1)
 
   const onClose = () => {
     setVisible(false)
@@ -85,29 +94,25 @@ function ListRecruitment(props) {
     setVisibleChilds(false)
   }
 
-  // const showChildrensDrawer = () => {
-  //   // dispatch(getCvByIdRequest(id))
-  //   setVisibleChilds(true)
-  // }
-  // const handelApply = (id) => {
-  //   // const data = { cv_id: id, recruitment_id: recruitmentid }
-  //   // dispatch(applyJobRequest(data))
-  //   console.log('id', id)
-  // }
-  // const handleApplyCV = (item) => {
-  //   Modal.confirm({
-  //     title: 'Thông báo',
-  //     icon: <ExclamationCircleOutlined />,
-  //     content: `Bạn có muốn apply CV ${item.title}`,
-  //     okText: 'Xác Nhận',
-  //     onOk: () => handelApply(item.id),
-  //     cancelText: 'Hủy',
-  //   })
-  // }
+  const showChildrensDrawer = (id) => {
+    dispatch(dispatchFetchDetailCvRequest(id))
+    setVisibleChilds(true)
+  }
+  const handelApply = (id) => {
+    const data = { cv_id: id, recruitment_id: recruitmentid }
+    dispatch(dispatchApplyJob(data))
+  }
 
-  // const detailCv = useSelector((state) => state.cv.detailCv)
-  // const dataUser = useSelector((state) => state.cv.dataUser)
-  // const dataCV = useSelector((state) => state.cv.dataCV)
+  const handleApplyCV = (item) => {
+    Modal.confirm({
+      title: 'Thông báo',
+      icon: <ExclamationCircleOutlined />,
+      content: `Bạn có muốn apply CV ${item.title}`,
+      okText: 'Xác Nhận',
+      onOk: () => handelApply(item.id),
+      cancelText: 'Hủy',
+    })
+  }
 
   // const token = getAccessToken()
   // if (token) {
@@ -117,14 +122,15 @@ function ListRecruitment(props) {
   // const listCvByUserId = useSelector((state) => state.cv.listCvByUserId)
 
   const showChildrenDrawer = () => {
-    // dispatch(getCvByUserIdRequest(id))
+    dispatch(dispatchFetchCvByUserIdRequest(UserID))
     setVisibleChild(true)
   }
 
   const handleDeitalRecruitment = (recruitmentID) => {
-    // setRecruitmentid(id)
+    setRecruitmentid(recruitmentID)
     setVisible(true)
-    dispatch(dispatchfetchLitsRecruitmentByEmployerID(recruitmentID))
+    dispatch(dispatchfetchDetailRecruitment(recruitmentID))
+    // dispatch(dispatchfetchLitsRecruitmentByEmployerID(recruitmentID))
   }
 
   // const detailRecruitment = detailRecruitment
@@ -325,14 +331,6 @@ function ListRecruitment(props) {
     </>
   )
 
-  function isCheck(obj, key) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const i of obj) {
-      if (!i[key]) return false
-    }
-    return true
-  }
-
   return (
     <Container fluid style={{ backgroundColor: '#f7f7f7' }}>
       <Container className="recruitment">
@@ -472,36 +470,36 @@ function ListRecruitment(props) {
               </div>
     )}
           >
-            {/* {listCvByUserId.result.map((item) => (
-      <Row
-        className="detail-content"
-        key={v4()}
-        style={{ margin: '10px 20px', alignItems: 'center' }}
-      >
-        <Col span={8}>
-          <Avatar shape="square" size={100} src={item.avatar} />
-        </Col>
-        <Col span={8}>
-          <h5>{item.title}</h5>
-        </Col>
+            {listCvByUserId.map((item) => (
+              <Row
+                className="detail-content"
+                key={v4()}
+                style={{ margin: '10px 20px', alignItems: 'center' }}
+              >
+                <Col span={8}>
+                  <Avatar shape="square" size={100} src={item.avatar} />
+                </Col>
+                <Col span={8}>
+                  <h5>{item.title}</h5>
+                </Col>
 
-        <Col span={8}>
-          <Button
-            type="info"
-            style={{ display: 'inline', marginRight: '5px' }}
-            onClick={() => handleApplyCV(item)}
-          >
-            Chon
-          </Button>
-          <Button
-            type="info"
-            onClick={() => showChildrensDrawer(item.id)}
-          >
-            xem
-          </Button>
-        </Col>
-      </Row>
-    ))} */}
+                <Col span={8}>
+                  <Button
+                    type="info"
+                    style={{ display: 'inline', marginRight: '5px' }}
+                    onClick={() => handleApplyCV(item)}
+                  >
+                    Chon
+                  </Button>
+                  <Button
+                    type="info"
+                    onClick={() => showChildrensDrawer(item.id)}
+                  >
+                    xem
+                  </Button>
+                </Col>
+              </Row>
+            ))}
 
             <Drawer
               title="Chi tiết CV"
@@ -522,11 +520,9 @@ function ListRecruitment(props) {
                 </div>
       )}
             >
-              {/* <DetailCv
-        dataUser={dataUser}
-        detailCv={detailCv}
-        dataCV={dataCV}
-      /> */}
+              <DetailCv
+                detailCV={detailCV}
+              />
             </Drawer>
           </Drawer>
         </Drawer>

@@ -14,9 +14,10 @@ import {
 
 import { v4 } from 'uuid'
 import { detailCVSelector, listCvByUserSelector } from 'stores/moduleCv/selectors'
+import { push } from 'connected-react-router'
 import DetailCv from './DetailCv'
 
-function ListCv(props) {
+function ListCv() {
   const [visible, setVisible] = useState(false)
   const userId = useSelector(userIDSelector)
   const detailCV = useSelector(detailCVSelector)
@@ -56,6 +57,11 @@ function ListCv(props) {
   }
   const onClose = () => {
     setVisible(false)
+  }
+
+  const handleUpdateCV = (value) => {
+    dispatch(dispatchFetchDetailCvRequest(value.id))
+    dispatch(push('/cv'))
   }
 
   const title = detailCV.title
@@ -101,6 +107,13 @@ function ListCv(props) {
                   onClick={() => showDrawer(item)}
                 >
                   Xem CV
+                </Button>
+                <Button
+                  type="primary"
+                  className="listCV__item-detail-overlay-btn"
+                  onClick={() => handleUpdateCV(item)}
+                >
+                  Chỉnh sửa CV
                 </Button>
                 <Button
                   type="primary"

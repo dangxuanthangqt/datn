@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as recruitmentsAPI from 'api/recruitmentsAPI'
-import { toastWarning } from 'helpers/toastify'
+import { toastSuccess, toastWarning } from 'helpers/toastify'
 import { get, head } from 'lodash'
 import {
   fetchInfoSuccess,
@@ -58,5 +58,14 @@ export const dispatchfetchDetailRecruitment = (payload) => async (dispatch) => {
     dispatch(fetchDetailRecruitmentSuccess(result))
   } catch (err) {
     toastWarning('Fetch list fail')
+  }
+}
+
+export const dispatchApplyJob = (payload) => async (dispatch) => {
+  try {
+    const resp = await recruitmentsAPI.applyJobAPI(payload)
+    toastSuccess('Ứng tuyển thành công !')
+  } catch (error) {
+    toastWarning('Ứng tuyển thất bại !')
   }
 }

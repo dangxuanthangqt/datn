@@ -14,6 +14,7 @@ import { includes, isEmpty } from 'lodash-es'
 import roles from 'constants/roles'
 import { logoutSuccess } from 'stores/moduleAuth/slices'
 import { push } from 'connected-react-router'
+import { resetDetailCV } from 'stores/moduleCv/slices'
 
 function Header() {
   const dispatch = useDispatch()
@@ -53,7 +54,7 @@ function Header() {
       </RouterLink>
       {
         includes(permission, roles.Candidate) && (
-        <RouterLink className="dropdown-item" to="/cv">
+        <RouterLink onClick={() => dispatch(resetDetailCV())} className="dropdown-item" to="/cv">
           Tạo nhanh CV
         </RouterLink>
         )

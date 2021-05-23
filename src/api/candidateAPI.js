@@ -12,3 +12,22 @@ export const updateInfoCandidateByUserIdAPI = (id, data) => Request.put({
   url: `candidates/${id}`,
   data,
 })
+
+export const getRecruimentApplyByUserIdAPI = ({
+  id, vacancy, limit, page,
+}) => Request.get({
+  url: `getjobapplybyuserid/${id}`,
+  params: { vacancy, limit, page },
+})
+
+export const deleteApplyJobAPI = (id) => Request.delete({
+  url: `applyjob/${id}`,
+})
+
+export const getCandidateAPI = ({
+  name, position, limit, page,
+}) => Request.get(
+  { url: `candidates?name=${name}&position=${position}&limit=${limit}&page=${page}` },
+)
+
+export const getDetailCandidateAPI = (id) => Request.get({ url: `candidates/${id}` })

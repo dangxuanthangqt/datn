@@ -24,3 +24,8 @@ export const fetchLitsRecruitmentByEmployerID = (data) => Request.get({
 export const fetchDetailRecruitment = (id) => Request.get({
   url: `recruitments/${id}`,
 })
+
+export const applyJobAPI = (data) => Request.post({
+  url: 'applyjob',
+  data,
+})

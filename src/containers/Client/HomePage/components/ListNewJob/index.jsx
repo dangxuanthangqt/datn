@@ -1,8 +1,9 @@
-import { SendOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined, SendOutlined } from '@ant-design/icons'
 import {
   Avatar, Badge, Button, Col, Drawer, Row,
   Skeleton,
   Tag,
+  Modal,
 } from 'antd'
 import roles from 'constants/roles'
 import { format } from 'date-fns'
@@ -11,17 +12,23 @@ import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-import { permissionSelector } from 'stores/moduleAuth/selectors'
+import { permissionSelector, userIDSelector } from 'stores/moduleAuth/selectors'
 import { detailRecruimentSelector, listRecruitmentOrderSelector } from 'stores/moduleRecruitment/selectors'
-import { dispatchfetchDetailRecruitment, fetchListRecruitmentOrderRequest } from 'stores/moduleRecruitment/thunks'
+import { dispatchApplyJob, dispatchfetchDetailRecruitment, fetchListRecruitmentOrderRequest } from 'stores/moduleRecruitment/thunks'
 import { v4 } from 'uuid'
+import { detailCVSelector, listCvByUserSelector } from 'stores/moduleCv/selectors'
+
 import './style.scss'
+import { dispatchFetchCvByUserIdRequest, dispatchFetchDetailCvRequest } from 'stores/moduleCv/thunks'
+import DetailCv from 'containers/Client/CandidateDashboard/components/ListCv/DetailCv'
 
 export default function ListNewJob() {
   const recruitmentOrder = useSelector(listRecruitmentOrderSelector)
   const detailRecruitment = useSelector(detailRecruimentSelector)
   const permission = useSelector(permissionSelector)
-  console.log('recruitmentOrder', recruitmentOrder)
+  const listCvByUserId = useSelector(listCvByUserSelector)
+  const userId = useSelector(userIDSelector)
+  const detailCV = useSelector(detailCVSelector)
   //  const userID = useSelector(userIDSelector)
   const dispatch = useDispatch()
   // detail
@@ -34,7 +41,7 @@ export default function ListNewJob() {
   const [visible, setVisible] = useState(false)
   const [visibleChild, setVisibleChild] = useState(false)
   const [visibleChilds, setVisibleChilds] = useState(false)
-  // const [recruitmentid, setRecruitmentid] = useState(1)
+  const [recruitmentid, setRecruitmentid] = useState(1)
 
   const onClose = () => {
     setVisible(false)
@@ -56,16 +63,15 @@ export default function ListNewJob() {
     setVisibleChilds(false)
   }
 
-  // const showChildrensDrawer = () => {
-  //   // dispatch(getCvByIdRequest(id))
-  //   setVisibleChilds(true)
-  // }
+  const showChildrensDrawer = (id) => {
+    dispatch(dispatchFetchDetailCvRequest(id))
+    setVisibleChilds(true)
+  }
 
-  // const handelApply = (id) => {
-  //   // const data = { cv_id: id, recruitment_id: recruitmentid }
-  //   console.log(id)
-  //   // dispatch(applyJobRequest(data))
-  // }
+  const handelApply = (id) => {
+    const data = { cv_id: id, recruitment_id: recruitmentid }
+    dispatch(dispatchApplyJob(data))
+  }
 
   useEffect(() => {
     dispatch(fetchListRecruitmentOrderRequest())
@@ -75,7 +81,7 @@ export default function ListNewJob() {
   //   history.push('/cv')
   // }
   const handleDeitalRecruitment = (id) => {
-    // setRecruitmentid(id)
+    setRecruitmentid(id)
     setVisible(true)
     dispatch(dispatchfetchDetailRecruitment(id))
 
@@ -186,30 +192,19 @@ export default function ListNewJob() {
     </>
   )
 
-  // const handleApplyCV = (item) => {
-  //   Modal.confirm({
-  //     title: 'Thông báo',
-  //     icon: <ExclamationCircleOutlined />,
-  //     content: `Bạn có muốn apply CV ${item.title}`,
-  //     okText: 'Xác Nhận',
-  //     onOk: () => handelApply(item.id),
-  //     cancelText: 'Hủy',
-  //   })
-  // }
-
-  // const detailCv = useSelector((state) => state.cv.detailCv)
-  // const dataUser = useSelector((state) => state.cv.dataUser)
-  // const dataCV = useSelector((state) => state.cv.dataCV)
-
-  // const token = getAccessToken()
-  // if (token) {
-  //   var id = JwtDecode(token).sub
-  // }
-
-  // const listCvByUserId = useSelector((state) => state.cv.listCvByUserId)
+  const handleApplyCV = (item) => {
+    Modal.confirm({
+      title: 'Thông báo',
+      icon: <ExclamationCircleOutlined />,
+      content: `Bạn có muốn apply CV ${item.title}`,
+      okText: 'Xác Nhận',
+      onOk: () => handelApply(item.id),
+      cancelText: 'Hủy',
+    })
+  }
 
   const showChildrenDrawer = () => {
-    // dispatch(getCvByUserIdRequest(id))
+    dispatch(dispatchFetchCvByUserIdRequest(userId))
     setVisibleChild(true)
   }
 
@@ -222,7 +217,6 @@ export default function ListNewJob() {
           <RouterLink to="/recruitments">
             <h5>
               <SendOutlined />
-              {' '}
               Tất cả việc làm
             </h5>
           </RouterLink>
@@ -359,7 +353,7 @@ export default function ListNewJob() {
               </div>
             )}
           >
-            {/* {listCvByUserId.result.map((item) => (
+            {listCvByUserId.map((item) => (
               <Row
                 className="detail-content"
                 key={v4()}
@@ -384,11 +378,11 @@ export default function ListNewJob() {
                     type="info"
                     onClick={() => showChildrensDrawer(item.id)}
                   >
-                    xem
+                    Xem
                   </Button>
                 </Col>
               </Row>
-            ))} */}
+            ))}
 
             <Drawer
               title="Chi tiết CV"
@@ -409,11 +403,9 @@ export default function ListNewJob() {
                 </div>
               )}
             >
-              {/* <DetailCv
-                dataUser={dataUser}
-                detailCv={detailCv}
-                dataCV={dataCV}
-              /> */}
+              <DetailCv
+                detailCV={detailCV}
+              />
             </Drawer>
           </Drawer>
         </Drawer>

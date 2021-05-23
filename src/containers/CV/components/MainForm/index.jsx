@@ -35,7 +35,8 @@ export default function MainForm(props) {
       {
       fields.map((item, index) => {
         register(`dataCV.${index}.check`) // đóng modal mất register nên reigster lại
-        // register(`dataCV.${index}.title`)
+        register(`dataCV.${index}.icon`)
+        setValue(`dataCV.${index}.icon`, item.icon)
         return (
         // thay doi trong value, nhung fiedl chua thay doi, nên get ra sẽ tháy đồng bộ checked
           <div
