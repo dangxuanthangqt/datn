@@ -48,7 +48,7 @@ function Header() {
     >
       <RouterLink
         className="dropdown-item"
-        to="/candidate-dashboard"
+        to={includes(permission, roles.Candidate) ? '/candidate-dashboard' : '/employer-dashbroad'}
       >
         Quản lý thông tin
       </RouterLink>

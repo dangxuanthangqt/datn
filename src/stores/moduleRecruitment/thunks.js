@@ -2,12 +2,15 @@
 import * as recruitmentsAPI from 'api/recruitmentsAPI'
 import { toastSuccess, toastWarning } from 'helpers/toastify'
 import { get, head } from 'lodash'
+import { dispatchFetchListCvAppliedRequest } from 'stores/moduleEmployer/thunks'
+import Store from 'stores/store'
 import {
-  fetchInfoSuccess,
-  fetchListRecruitmentOrderSuccess,
-  fetchListRecruitmentSuccess,
   fetchDetailRecruitmentSuccess,
-  fetchListRecruitmentByEmployerIDSuccess,
+
+  fetchInfoEditRecruitmentSuccess, fetchInfoSuccess,
+
+  fetchListRecruitmentByEmployerIDSuccess, fetchListRecruitmentOrderSuccess,
+  fetchListRecruitmentSuccess,
 } from './slices'
 
 export const fetchInformationRequest = () => async (dispatch) => {
@@ -50,6 +53,16 @@ export const dispatchfetchLitsRecruitmentByEmployerID = (payload) => async (disp
   }
 }
 
+export const dispatchfetchLitsRecruitmentByUserID = (payload) => async (dispatch) => {
+  try {
+    const resp = await recruitmentsAPI.fetchLitsRecruitmentByUserID(payload)
+    const { data } = resp
+    dispatch(fetchListRecruitmentByEmployerIDSuccess(get(data, 'result', {})))
+  } catch (err) {
+    toastWarning('Fetch list fail')
+  }
+}
+
 export const dispatchfetchDetailRecruitment = (payload) => async (dispatch) => {
   try {
     const resp = await recruitmentsAPI.fetchDetailRecruitment(payload)
@@ -67,5 +80,48 @@ export const dispatchApplyJob = (payload) => async (dispatch) => {
     toastSuccess('Ứng tuyển thành công !')
   } catch (error) {
     toastWarning('Ứng tuyển thất bại !')
+  }
+}
+
+export const dispatchFetchInfoEditRecruitment = (id) => async (dispatch) => {
+  try {
+    const resp = await recruitmentsAPI.getRecruitmentEditAPI(id)
+    const { data } = resp
+    const result = head(get(data, 'result', [])) || {}
+    dispatch(fetchInfoEditRecruitmentSuccess(result))
+  } catch (err) {
+    toastWarning('Fetch edit recruitment fail')
+  }
+}
+
+export const dispatchAddRecruitmentRequest = (data) => async (dispatch) => {
+  try {
+    const resp = await recruitmentsAPI.addRecruitmentAPI(data)
+    toastSuccess('Thêm tin tuyển dụng thành công!')
+  } catch (err) {
+    toastWarning('Them that bai !')
+  }
+}
+
+export const dispatchUpdateRecruitmentRequest = (id, data) => async () => {
+  try {
+    const resp = await recruitmentsAPI.updateRecruitmentAPI(id, data)
+    toastSuccess('Cập nhật tin  tuyển dụng thành công!')
+  } catch (error) {
+    toastWarning('Update that bai !')
+  }
+}
+
+export const dispatchDeleteRecruitmentRequest = (id) => async (dispatch) => {
+  const { store } = Store
+  const userID = get(store.getState(), 'authState.user.id')
+  try {
+    const resp = await recruitmentsAPI.deleteRecruitmentAPI(id)
+    dispatch(dispatchFetchListCvAppliedRequest({
+      id: userID, name: '', limit: 5, page: 1,
+    }))
+    toastSuccess('Xóa tin  tuyển dụng thành công!')
+  } catch (error) {
+    toastWarning('Delete that bai !')
   }
 }

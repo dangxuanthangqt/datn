@@ -10,3 +10,7 @@ export const dataListEmployerSelector = createSelector(employerSelector, (state)
 export const totalListEmployerSelector = createSelector(employerSelector, (state) => get(state, 'listEmployer.total'))
 
 export const infoEmployerSelector = createSelector(employerSelector, (state) => get(state, 'infoEmployer', {}))
+
+export const dashboardEmployerSelector = createSelector(employerSelector, (state) => get(state, 'dashboardEmployer', {}))
+
+export const listCvAppliedSelector = createSelector(employerSelector, (state) => get(state, 'listCvApplied', {}))

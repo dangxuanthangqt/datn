@@ -4,6 +4,8 @@ const initialState = {
   listCity: [],
   listRank: [],
   listCareer: [],
+  listSalary: [],
+  listTypeOfWork: [],
 }
 
 const dataMasterSlice = createSlice({
@@ -19,6 +21,12 @@ const dataMasterSlice = createSlice({
     fetchListCareerSuccess: (state, { payload }) => {
       state.listCareer = payload
     },
+    fetchListSalarySuccess: (state, { payload }) => {
+      state.listSalary = payload
+    },
+    fetchListTypeOfWorkSuccess: (state, { payload }) => {
+      state.listTypeOfWork = payload
+    },
   },
 })
 
@@ -26,6 +34,8 @@ export const {
   fetchListCitySuccess,
   fetchListRankSuccess,
   fetchListCareerSuccess,
+  fetchListSalarySuccess,
+  fetchListTypeOfWorkSuccess,
 } = dataMasterSlice.actions
 
 export default dataMasterSlice.reducer

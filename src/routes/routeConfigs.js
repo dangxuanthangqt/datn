@@ -2,6 +2,7 @@ import { lazy } from 'react'
 
 import ClientLayout from 'layouts/ClientLayout'
 import CandidateDashboard from 'layouts/CandidateDashboard'
+import EmployerDashboard from 'layouts/EmployerDashBoard'
 import roles from 'constants/roles'
 import CV from 'layouts/CV'
 import { routes } from './routes'
@@ -113,6 +114,49 @@ export const ProtectedRoutes = [
     ],
     permission: [
       roles.Candidate,
+    ],
+  },
+  {
+    layout: EmployerDashboard,
+    subRoutes: [
+      {
+        title: 'Main',
+        key: 'ep main',
+        path: routes.employerDashboardPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/EmployerDashboard')),
+      },
+      {
+        title: 'Tin tuyển dụng',
+        key: 'list job',
+        path: routes.listJobPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/EmployerDashboard/components/ListJobEmployer')),
+      },
+      {
+        title: 'Thêm tin tuyển dụng',
+        key: 'Add job',
+        path: routes.addJobPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/EmployerDashboard/components/AddJob')),
+      },
+      {
+        title: 'Cap nhat tin tuyển dụng',
+        key: 'update job',
+        path: routes.updateJobPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/EmployerDashboard/components/EditJob')),
+      },
+      {
+        title: 'Danh sach ung tuyen',
+        key: 'list candidate',
+        path: routes.listCandidatePage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/EmployerDashboard/components/ListCandidate')),
+      },
+    ],
+    permission: [
+      roles.Employer,
     ],
   },
 ]

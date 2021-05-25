@@ -35,6 +35,26 @@ export const routes = {
     path: '/candidate',
     build: () => '/candidate',
   },
+  employerDashboardPage: {
+    path: '/employer-dashbroad',
+    build: () => '/employer-dashbroad',
+  },
+  listJobPage: {
+    path: '/employer-dashbroad/list-job',
+    build: () => '/employer-dashbroad/list-job',
+  },
+  addJobPage: {
+    path: '/employer-dashbroad/add-recruitment',
+    build: () => '/employer-dashbroad/add-recruitment',
+  },
+  updateJobPage: {
+    path: '/employer-dashbroad/list-job/edit/:id',
+    build: () => '/employer-dashbroad/list-job/edit/:id',
+  },
+  listCandidatePage: {
+    path: '/employer-dashbroad/list-candidate',
+    build: () => '/employer-dashbroad/list-candidate',
+  },
   loginPage: {
     path: '/login',
     build: () => '/login',

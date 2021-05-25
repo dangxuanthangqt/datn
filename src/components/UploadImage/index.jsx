@@ -37,7 +37,7 @@ export const UploadImage = (props) => {
     setFileList([
       {
         uid: '-1',
-        name: 'avatar.img',
+        name: 'upload',
         status: 'done',
         url,
         thumbUrl: url,
@@ -75,3 +75,6 @@ export const UploadImage = (props) => {
     </Form.Item>
   )
 }
+// UploadImage.defaultProps = {
+//   url: '/',
+// }

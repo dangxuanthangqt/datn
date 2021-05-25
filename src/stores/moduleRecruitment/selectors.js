@@ -16,3 +16,5 @@ export const totalSelector = createSelector(recruitmentSelector, (state) => get(
 export const detailRecruimentSelector = createSelector(recruitmentSelector, (state) => get(state, 'detailRecruitment', {}))
 
 export const listRecruitmentByUserIDSelector = createSelector(recruitmentSelector, (state) => get(state, 'listRecruitmentByUserID', {}))
+
+export const infoEditRecruitmentSelector = createSelector(recruitmentSelector, (state) => get(state, 'infoEditRecruitment', {}))

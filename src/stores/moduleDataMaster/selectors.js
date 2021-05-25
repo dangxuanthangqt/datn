@@ -8,3 +8,6 @@ export const listCitySelector = createSelector(dataMasterSelector, state => get(
 export const listRankSelector = createSelector(dataMasterSelector, state => get(state, 'listRank', []))
 
 export const listCareerSelector = createSelector(dataMasterSelector, state => get(state, 'listCareer', []))
+
+export const listSalarySelector = createSelector(dataMasterSelector, state => get(state, 'listSalary', []))
+export const listTypeOfWorkSelector = createSelector(dataMasterSelector, state => get(state, 'listTypeOfWork', []))

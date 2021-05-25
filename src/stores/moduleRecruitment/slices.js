@@ -10,6 +10,7 @@ const initialState = {
   listRecruitment: {},
   listRecruitmentByUserID: {},
   detailRecruitment: {},
+  infoEditRecruitment: {},
 }
 
 const recruitmentSlice = createSlice({
@@ -31,6 +32,9 @@ const recruitmentSlice = createSlice({
     fetchDetailRecruitmentSuccess: (state, { payload }) => {
       state.detailRecruitment = payload
     },
+    fetchInfoEditRecruitmentSuccess: (state, { payload }) => {
+      state.infoEditRecruitment = payload
+    },
   },
 })
 
@@ -40,6 +44,7 @@ export const {
   fetchListRecruitmentSuccess,
   fetchListRecruitmentByEmployerIDSuccess,
   fetchDetailRecruitmentSuccess,
+  fetchInfoEditRecruitmentSuccess,
 } = recruitmentSlice.actions
 
 export default recruitmentSlice.reducer

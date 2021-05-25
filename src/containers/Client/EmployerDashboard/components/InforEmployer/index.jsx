@@ -1,93 +1,110 @@
 import {
-  Button, Col, DatePicker, Form, Input, Row, Select,
+  Button, Col, Form, Input, Row,
 } from 'antd'
 import { UploadImage } from 'components/UploadImage'
-import moment from 'moment'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userIDSelector } from 'stores/moduleAuth/selectors'
-import { infoCandidateSelector } from 'stores/moduleCandidate/selectors'
-import { dispatchFetchInfoCandidateRequest, dispatchUpdateInfoCandidateRequest } from 'stores/moduleCandidate/thunks'
-import { listCareerSelector } from 'stores/moduleDataMaster/selectors'
-import { dispatchFetchListCareer } from 'stores/moduleDataMaster/thunks'
-import { v4 } from 'uuid'
+import { infoEmployerSelector } from 'stores/moduleEmployer/selectors'
+import { dispatchUpdateInfoEmployerRequest, fetchInfoEmployerRequest } from 'stores/moduleEmployer/thunks'
 
 import './style.scss'
 
-export default function InforCandidate() {
-  const { Option } = Select
-
+export default function InforEmployer() {
   const userID = useSelector(userIDSelector)
 
-  const infoCandidate = useSelector(infoCandidateSelector)
+  const infoEmployer = useSelector(infoEmployerSelector)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(dispatchFetchInfoCandidateRequest(userID))
-    dispatch(dispatchFetchListCareer())
+    dispatch(fetchInfoEmployerRequest(userID))
   }, [dispatch])
 
   const onFinish = (value) => {
     const newValue = {
       ...value,
       avatar: value.avatar.fileList?.[0].thumbUrl || value.avatar,
+      photo: value.photo.fileList?.[0].thumbUrl || value.photo,
     }
-    dispatch(dispatchUpdateInfoCandidateRequest(infoCandidate.id, newValue))
+
+    dispatch(dispatchUpdateInfoEmployerRequest({ id: infoEmployer.id, data: newValue }))
   }
 
   const [form] = Form.useForm()
   const { setFieldsValue } = form
 
   useEffect(() => {
-    if (infoCandidate) {
+    if (infoEmployer) {
       setFieldsValue({
-        name: infoCandidate.name
-          ? infoCandidate.name
+        company: infoEmployer.company
+          ? infoEmployer.company
           : 'Đang cập nhật',
       })
       setFieldsValue({
-        address: infoCandidate.address
-          ? infoCandidate.address
+        contact: infoEmployer.contact
+          ? infoEmployer.contact
           : 'Đang cập nhật',
       })
       setFieldsValue({
-        phone: infoCandidate.phone
-          ? infoCandidate.phone
+        address: infoEmployer.address
+          ? infoEmployer.address
           : 'Đang cập nhật',
       })
       setFieldsValue({
-        position: infoCandidate.position
-          ? infoCandidate.position
+        phone: infoEmployer.phone
+          ? infoEmployer.phone
           : 'Đang cập nhật',
       })
       setFieldsValue({
-        experience: infoCandidate.experience
-          ? infoCandidate.experience
+        website: infoEmployer.website
+          ? infoEmployer.website
           : 'Đang cập nhật',
       })
       setFieldsValue({
-        birthday: moment(infoCandidate.birthday)
-          ? moment(infoCandidate.birthday)
+        description: infoEmployer.description
+          ? infoEmployer.description
           : 'Đang cập nhật',
       })
     }
     return setFieldsValue({})
-  }, [infoCandidate])
-
-  const career = useSelector(listCareerSelector)
+  }, [infoEmployer])
 
   return (
     <Form form={form} onFinish={onFinish}>
       <div className="info__employers">
-        <h6>Avatar</h6>
-        <UploadImage name="avatar" url={infoCandidate.avatar} />
-        <h6>Tên ứng viên</h6>
+        <div className="info__employers-avatar">
+          <div>
+            <h6>Ảnh đại diện</h6>
+            <UploadImage name="avatar" url={infoEmployer.avatar} />
+          </div>
+          <div>
+            <h6>Ảnh bìa</h6>
+            <UploadImage name="photo" url={infoEmployer.photo} />
+          </div>
+        </div>
+        <h6>Tên công ty</h6>
         <Form.Item
-          name="name"
+          name="company"
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập tên ứng viên',
+              message: 'Vui lòng nhập tên công ty',
+            },
+          ]}
+        >
+          <Input
+            className="info__employers-input"
+            placeholder="Axon Acitve Viet Nam"
+          />
+        </Form.Item>
+        <h6>Tên liên hệ</h6>
+        <Form.Item
+          name="contact"
+          rules={[
+            {
+              required: true,
+              message: 'Vui lòng nhập tên liên hệ',
             },
           ]}
         >
@@ -96,32 +113,23 @@ export default function InforCandidate() {
             placeholder="Trần Kim Hoàng"
           />
         </Form.Item>
-        <h6>Địa chỉ</h6>
-        <Form.Item
-          name="address"
-          rules={[
-            {
-              required: true,
-              message: 'Vui lòng nhập địa chỉ',
-            },
-          ]}
-        >
-          <Input className="info__employers-input" placeholder="Đà Nẵng" />
-        </Form.Item>
         <Row>
           <Col span={12}>
             <div>
-              <h6>Ngày tháng năm sinh</h6>
+              <h6>Địa chỉ</h6>
               <Form.Item
-                name="birthday"
+                name="address"
                 rules={[
                   {
                     required: true,
-                    message: 'Vui lòng chọn ngày sinh',
+                    message: 'Vui lòng nhập địa chỉ',
                   },
                 ]}
               >
-                <DatePicker />
+                <Input
+                  className="info__employers-input"
+                  placeholder="Đà Nẵng"
+                />
               </Form.Item>
               <h6>Số điện thoại</h6>
               <Form.Item
@@ -142,47 +150,35 @@ export default function InforCandidate() {
           </Col>
           <Col span={12}>
             <div>
-              <h6>Vị trí</h6>
+              <h6>website</h6>
               <Form.Item
-                name="position"
+                name="website"
                 rules={[
                   {
                     required: true,
-                    message: 'Vui lòng nhập ví trí',
+                    message: 'Vui lòng nhập địa chỉ website',
                   },
                 ]}
               >
-                {/* <Input
+                <Input
                   className="info__employers-input"
-                  placeholder="Internship"
-                /> */}
-                <Select
-                  className="info__employers-input-select"
-                  showSearch
-                  style={{ width: 200 }}
-                  optionFilterProp="children"
-                  filterOption={(input, option) => option.children
-                    .toLowerCase()
-                    .indexOf(input.toLowerCase()) >= 0}
-                >
-                  {career.map((value) => (
-                    <Option key={v4()} value={value.name}>
-                      {value.name}
-                    </Option>
-                  ))}
-                </Select>
+                  placeholder="axon.vn"
+                />
               </Form.Item>
-              <h6>Kinh nghiệm </h6>
+              <h6>Mô Tả</h6>
               <Form.Item
-                name="experience"
+                name="description"
                 rules={[
                   {
                     required: true,
-                    message: 'Vui lòng nhập kinh nghiệm',
+                    message: 'Vui lòng nhập mô tả',
                   },
                 ]}
               >
-                <Input className="info__employers-input" placeholder="1 năm" />
+                <Input
+                  className="info__employers-input"
+                  placeholder="Gia công phần mềm"
+                />
               </Form.Item>
             </div>
           </Col>
