@@ -1,0 +1,78 @@
+.mainAdmin {
+  background-image: url('https://wallpapershome.com/images/pages/ico_h/20651.jpg');
+  margin: 10px 10px 0 0;
+  font-family: 'Poppins', sans-serif !important;
+
+  height: auto;
+  padding-bottom: 20px;
+  //   border-bottom: 3px double tomato;
+  box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: #f7f7f7;
+  &__cover {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  &__info {
+    position: relative;
+
+    margin-top: -150px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    &-item {
+      box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 170px;
+      height: 130px;
+      background-color: #e1f0ff;
+      &:first-child {
+        background-color: #fff4de;
+        h5 {
+          color: #e5b657;
+        }
+      }
+      &:nth-child(2) {
+        background-color: #e1f0ff;
+        h5 {
+          color: #60afff;
+        }
+      }
+      &:nth-child(3) {
+        background-color: #ffe2e5;
+        h5 {
+          color: #ff7c89;
+        }
+      }
+      &:nth-child(4) {
+        background-color: #c9f7f5;
+        h5 {
+          color: #68c4bf;
+        }
+      }
+
+      h3 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #494949;
+        border-bottom: 3px solid white;
+      }
+      h5 {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        span {
+          margin-right: 6px;
+        }
+        font-size: 0.9rem;
+        font-weight: initial;
+      }
+    }
+  }
+}

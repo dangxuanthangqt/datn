@@ -8,6 +8,7 @@ import employerReducer from './moduleEmployer/slices'
 import dataMasterReducer from './moduleDataMaster/slices'
 import candidateReducer from './moduleCandidate/slices'
 import cvReducer from './moduleCv/slices'
+import adminReducer from './moduleAdmin/slices'
 
 const createRootReducer = (injectedReducers = {}) => combineReducers({
   router: connectRouter(history),
@@ -17,6 +18,7 @@ const createRootReducer = (injectedReducers = {}) => combineReducers({
   candidateState: candidateReducer,
   dataMasterState: dataMasterReducer,
   cvState: cvReducer,
+  adminState: adminReducer,
   ...injectedReducers,
 })
 

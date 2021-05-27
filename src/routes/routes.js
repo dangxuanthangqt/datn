@@ -55,6 +55,22 @@ export const routes = {
     path: '/employer-dashbroad/list-candidate',
     build: () => '/employer-dashbroad/list-candidate',
   },
+  adminDashBoardPage: {
+    path: '/admin-dashboard',
+    build: () => '/admin-dashboard',
+  },
+  adminListRecruitmentPage: {
+    path: '/admin-dashboard/list-recruitment',
+    build: () => '/admin-dashboard/list-recruitment',
+  },
+  adminListEmployerPage: {
+    path: '/admin-dashboard/list-employer',
+    build: () => '/admin-dashboard/list-employer',
+  },
+  adminListCandidatePage: {
+    path: '/admin-dashboard/list-candidate',
+    build: () => '/admin-dashboard/list-candidate',
+  },
   loginPage: {
     path: '/login',
     build: () => '/login',

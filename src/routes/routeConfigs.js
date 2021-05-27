@@ -5,6 +5,7 @@ import CandidateDashboard from 'layouts/CandidateDashboard'
 import EmployerDashboard from 'layouts/EmployerDashBoard'
 import roles from 'constants/roles'
 import CV from 'layouts/CV'
+import AdminDashboard from 'layouts/AminDashboard'
 import { routes } from './routes'
 
 export const AuthRoutes = [
@@ -157,6 +158,42 @@ export const ProtectedRoutes = [
     ],
     permission: [
       roles.Employer,
+    ],
+  },
+  {
+    layout: AdminDashboard,
+    subRoutes: [
+      {
+        title: 'Admin dash board',
+        key: 'admin dash board',
+        path: routes.adminDashBoardPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Admin/DashBoard')),
+      },
+      {
+        title: 'List recruitment',
+        key: 'list recruitment',
+        path: routes.adminListRecruitmentPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Admin/ListRecruitment')),
+      },
+      {
+        title: 'List employer',
+        key: 'list employer',
+        path: routes.adminListEmployerPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Admin/ListEmployer')),
+      },
+      {
+        title: 'List candidate',
+        key: 'list candidate',
+        path: routes.adminListCandidatePage.path,
+        exact: true,
+        component: lazy(() => import('containers/Admin/ListCandidate')),
+      },
+    ],
+    permission: [
+      roles.Admin,
     ],
   },
 ]
