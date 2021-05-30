@@ -1,7 +1,7 @@
 // import { ConnectedRouter } from 'connected-react-router'
 import history from 'helpers/history'
 import React, { Suspense } from 'react'
-import { Router } from 'react-router-dom'
+import { Redirect, Route, Router } from 'react-router-dom'
 import { v4 } from 'uuid'
 import AuthRoute from './AuthRoute'
 import ProtectedRoute from './ProtectedRoute'
@@ -27,6 +27,7 @@ export default function Routers() {
               <ProtectedRoute key={v4()} {...item} />
             ))
         }
+        {/* <Route path="*" render={() => <Redirect to="/" />} /> */}
       </Suspense>
     </Router>
 

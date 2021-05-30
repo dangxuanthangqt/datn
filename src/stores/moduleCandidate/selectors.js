@@ -12,3 +12,5 @@ export const recruitmentApplySelector = createSelector(candidateSelector, state 
 export const listCandidateSelector = createSelector(candidateSelector, state => get(state, 'listCandidate', {}))
 
 export const detailCandidateSelector = createSelector(candidateSelector, state => get(state, 'detailCandidate', {}))
+
+export const listEmployerAttentionSelector = createSelector(candidateSelector, state => get(state, 'listEmployerAttention', []))

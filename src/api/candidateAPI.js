@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import Request from 'services/request'
 
 export const dashboardCandidateAPI = (id) => Request.get({
@@ -31,3 +32,12 @@ export const getCandidateAPI = ({
 )
 
 export const getDetailCandidateAPI = (id) => Request.get({ url: `candidates/${id}` })
+
+export const getInfoEmployerAttentionAPI = (id) => Request.get({
+  url: `/getinfoemployer/${id}`,
+})
+
+export const deleteEmployerAttentionAPI = ({ cvID, userID }) => Request.post({
+  url: '/delelecvsave',
+  data: { cv_id: cvID, user_id: parseInt(userID) },
+})

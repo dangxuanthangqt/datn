@@ -1,8 +1,10 @@
 import { deleteApplyJobAPI } from 'api/candidateAPI'
 import { getCvByEmployerIdAPI } from 'api/cvAPI'
 import * as employerAPI from 'api/employerAPI'
+import { push } from 'connected-react-router'
 import { toastSuccess, toastWarning } from 'helpers/toastify'
 import { get, head } from 'lodash'
+import { routes } from 'routes/routes'
 import Store from 'stores/store'
 
 import {
@@ -11,6 +13,7 @@ import {
   fetchListEmployerSuccess,
   fetchDashboardEmployerSuccess,
   fetchlistCvAppliedSuccess,
+  fetchListCvAttentionSuccess,
 } from './slices'
 
 export const fetchListEmployerOrderRequest = () => async (dispatch) => {
@@ -83,5 +86,24 @@ export const deleteAppliedJob = (id) => async (dispatch) => {
     toastSuccess('Từ chối ứng viên thành công !')
   } catch (error) {
     toastWarning('từ chối thất bại')
+  }
+}
+
+export const dispatchAttentionCV = (data) => async (dispatch) => {
+  try {
+    const resp = await employerAPI.attentionCVAPI(data)
+    toastSuccess('Đã đưa vào danh sách quan tâm !')
+    dispatch(push(routes.listCvAttentionPage.path))
+  } catch (error) {
+    toastWarning('Quan tâm thất bại!')
+  }
+}
+
+export const getAttentionCV = (id) => async (dispatch) => {
+  try {
+    const resp = await employerAPI.getAttentionCV(id)
+    dispatch(fetchListCvAttentionSuccess(get(resp, 'data.result', [])))
+  } catch (error) {
+    toastWarning('Get list cv that bai')
   }
 }

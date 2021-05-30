@@ -1,32 +1,31 @@
-import { FrownOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import {
   Avatar,
   Button,
   Col,
   Drawer,
-  Pagination,
-  Result,
+  Modal, Pagination,
   Row,
-  Skeleton,
   Typography,
 } from 'antd'
 import { DataNull } from 'components/DataNull'
 import DetailCv from 'containers/Client/CandidateDashboard/components/ListCv/DetailCv'
-import { identity } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import { useDispatch, useSelector } from 'react-redux'
+import { userIDSelector } from 'stores/moduleAuth/selectors'
 import { detailCandidateSelector, listCandidateSelector } from 'stores/moduleCandidate/selectors'
 import { dispatchFetchDetailCandidate, dispatchFetchListCandidate } from 'stores/moduleCandidate/thunks'
 import { detailCVSelector, listCvByUserSelector } from 'stores/moduleCv/selectors'
 import { dispatchFetchCvByUserIdRequest, dispatchFetchDetailCvRequest } from 'stores/moduleCv/thunks'
+import { dispatchAttentionCV } from 'stores/moduleEmployer/thunks'
 import { v4 } from 'uuid'
-
 import './style.scss'
 
 export default function ListCandidates(props) {
   const { formState, current, handleCurrent } = props
   const dispatch = useDispatch()
+  const userId = useSelector(userIDSelector)
   const candidate = useSelector(listCandidateSelector)
   const listCvByUserId = useSelector(listCvByUserSelector)
   const detailCandidate = useSelector(detailCandidateSelector)
@@ -46,6 +45,21 @@ export default function ListCandidates(props) {
   const showChildrensDrawer = (id) => {
     dispatch(dispatchFetchDetailCvRequest(id))
     setVisibleChilds(true)
+  }
+
+  const attentionCandidate = (cvId) => {
+    dispatch(dispatchAttentionCV({ userId, cvId }))
+  }
+
+  const handleAttentionCV = (cvId) => {
+    Modal.confirm({
+      title: 'Thông báo',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Thêm vào danh sách quan tâm !',
+      okText: 'Xác nhận',
+      onOk: () => attentionCandidate(cvId),
+      cancelText: 'Hủy',
+    })
   }
   const handleChangePage = (value) => {
     handleCurrent(value)
@@ -140,34 +154,28 @@ export default function ListCandidates(props) {
             <Col span={12} style={{ marginTop: '10px' }}>
               <p>
                 Số điện thoại:
-                {' '}
                 {datas.phone ? datas.phone : 'Đang cập nhật'}
               </p>
               <p>
                 Vị trị:
-                {' '}
                 {datas.position ? datas.position : 'Đang cập nhật'}
               </p>
               <p>
                 Địa chỉ:
-                {' '}
                 {datas.address ? datas.address : 'Đang cập nhật'}
               </p>
             </Col>
             <Col span={12} style={{ marginTop: '10px' }}>
               <p>
                 Kinh nghiệm:
-                {' '}
                 {datas.experience ? datas.experience : 'Đang cập nhật'}
               </p>
               <p>
                 Ngày sinh:
-                {' '}
                 {datas.birthday ? datas.birthday : 'Đang cập nhật'}
               </p>
               <p>
                 Email:
-                {' '}
                 {datas.email ? datas.email : 'Đang cập nhật'}
               </p>
             </Col>
@@ -195,6 +203,7 @@ export default function ListCandidates(props) {
                 <Button
                   type="info"
                   style={{ display: 'inline', marginRight: '5px' }}
+                  onClick={() => handleAttentionCV(item.id)}
                 >
                   Chon
                 </Button>

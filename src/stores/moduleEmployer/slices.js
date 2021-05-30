@@ -6,6 +6,7 @@ const initialState = {
   infoEmployer: {},
   dashboardEmployer: {},
   listCvApplied: [],
+  listCvAttention: [],
 }
 
 const employerSlice = createSlice({
@@ -27,6 +28,9 @@ const employerSlice = createSlice({
     fetchlistCvAppliedSuccess: (state, { payload }) => {
       state.listCvApplied = payload
     },
+    fetchListCvAttentionSuccess: (state, { payload }) => {
+      state.listCvAttention = payload
+    },
   },
 })
 
@@ -36,6 +40,7 @@ export const {
   fetchInfoEmployerSuccess,
   fetchDashboardEmployerSuccess,
   fetchlistCvAppliedSuccess,
+  fetchListCvAttentionSuccess,
 } = employerSlice.actions
 
 export default employerSlice.reducer

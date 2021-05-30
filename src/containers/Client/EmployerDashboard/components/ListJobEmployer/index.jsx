@@ -86,7 +86,7 @@ function ListJobEmployer() {
   }
 
   const handleEditRecruitment = (id) => {
-    history.push(`/employer-dashbroad/list-job/edit/${id}`)
+    history.push(`/employer-dashboard/list-job/edit/${id}`)
   }
 
   const handelDelete = (id) => {

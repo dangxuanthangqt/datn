@@ -62,22 +62,28 @@ export default function SideBarMenu() {
         <ul>
           <li>
             <HomeOutlined />
-            <Link to="/employer-dashbroad">Quản lý chung</Link>
+            <Link to="/employer-dashboard">Quản lý chung</Link>
           </li>
           <li>
             <SolutionOutlined />
-            <Link to="/employer-dashbroad/list-job">Tin tuyển dụng</Link>
+            <Link to="/employer-dashboard/list-job">Tin tuyển dụng</Link>
           </li>
           <li>
             <FormOutlined />
-            <Link to="/employer-dashbroad/add-recruitment">
+            <Link to="/employer-dashboard/add-recruitment">
               Đăng tin tuyển dụng
             </Link>
           </li>
           <li>
             <UserOutlined />
-            <Link to="/employer-dashbroad/list-candidate">
-              Danh sách ứng viên
+            <Link to="/employer-dashboard/list-candidate">
+              Danh sách ứng viên ứng tuyển
+            </Link>
+          </li>
+          <li>
+            <UserOutlined />
+            <Link to="/employer-dashboard/list-cv-attention">
+              Danh sách ứng viên quan tâm
             </Link>
           </li>
         </ul>

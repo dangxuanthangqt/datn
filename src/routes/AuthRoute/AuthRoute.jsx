@@ -26,6 +26,7 @@ const AuthRoute = (props) => {
             path={item.path}
             exact={item.exact}
             render={() => {
+              console.log('thang test')
               if (isAuthentication) return <Redirect to={routes.homePage.path} />
               return (
                 <Layout>

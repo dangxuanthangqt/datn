@@ -36,24 +36,32 @@ export const routes = {
     build: () => '/candidate',
   },
   employerDashboardPage: {
-    path: '/employer-dashbroad',
-    build: () => '/employer-dashbroad',
+    path: '/employer-dashboard',
+    build: () => '/employer-dashboard',
   },
   listJobPage: {
-    path: '/employer-dashbroad/list-job',
-    build: () => '/employer-dashbroad/list-job',
+    path: '/employer-dashboard/list-job',
+    build: () => '/employer-dashboard/list-job',
   },
   addJobPage: {
-    path: '/employer-dashbroad/add-recruitment',
-    build: () => '/employer-dashbroad/add-recruitment',
+    path: '/employer-dashboard/add-recruitment',
+    build: () => '/employer-dashboard/add-recruitment',
   },
   updateJobPage: {
-    path: '/employer-dashbroad/list-job/edit/:id',
-    build: () => '/employer-dashbroad/list-job/edit/:id',
+    path: '/employer-dashboard/list-job/edit/:id',
+    build: () => '/employer-dashboard/list-job/edit/:id',
   },
   listCandidatePage: {
-    path: '/employer-dashbroad/list-candidate',
-    build: () => '/employer-dashbroad/list-candidate',
+    path: '/employer-dashboard/list-candidate',
+    build: () => '/employer-dashboard/list-candidate',
+  },
+  listCvAttentionPage: {
+    path: '/employer-dashboard/list-cv-attention',
+    build: () => '/employer-dashboard/list-cv-attention',
+  },
+  listEmployerAttentionPage: {
+    path: '/candidate-dashboard/list-employer-attention',
+    build: () => '/candidate-dashboard/list-employer-attention',
   },
   adminDashBoardPage: {
     path: '/admin-dashboard',

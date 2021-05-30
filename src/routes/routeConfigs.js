@@ -96,6 +96,13 @@ export const ProtectedRoutes = [
         exact: true,
         component: lazy(() => import('containers/Client/CandidateDashboard/components/ListJobApply')),
       },
+      {
+        title: 'Danh sach nhà tuyển dụng',
+        key: 'candidate-dashboard/list-job',
+        path: routes.listEmployerAttentionPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/CandidateDashboard/components/ListEmployerAttention')),
+      },
 
     ],
     permission: [
@@ -154,6 +161,13 @@ export const ProtectedRoutes = [
         path: routes.listCandidatePage.path,
         exact: true,
         component: lazy(() => import('containers/Client/EmployerDashboard/components/ListCandidate')),
+      },
+      {
+        title: 'Danh sach quan tam',
+        key: 'list quan tam',
+        path: routes.listCvAttentionPage.path,
+        exact: true,
+        component: lazy(() => import('containers/Client/EmployerDashboard/components/ListCvAttention')),
       },
     ],
     permission: [

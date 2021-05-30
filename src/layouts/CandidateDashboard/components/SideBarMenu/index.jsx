@@ -65,6 +65,10 @@ export default function SibarMenu() {
           </li>
           <li>
             <SolutionOutlined />
+            <Link to="/candidate-dashboard/list-employer-attention">Tin tuyển dụng</Link>
+          </li>
+          <li>
+            <SolutionOutlined />
             <Link to="/candidate-dashboard/list-cv">Quản lý CV</Link>
           </li>
         </ul>

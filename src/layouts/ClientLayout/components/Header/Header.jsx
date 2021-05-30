@@ -20,7 +20,6 @@ function Header() {
   const dispatch = useDispatch()
   const dataUser = useSelector(userSelector)
   const permission = useSelector(permissionSelector)
-
   const handleLogout = () => {
     dispatch(logoutSuccess())
     dispatch(push('/'))
@@ -48,7 +47,7 @@ function Header() {
     >
       <RouterLink
         className="dropdown-item"
-        to={includes(permission, roles.Candidate) ? '/candidate-dashboard' : '/employer-dashbroad'}
+        to={includes(permission, roles.Candidate) ? '/candidate-dashboard' : '/employer-dashboard'}
       >
         Quản lý thông tin
       </RouterLink>
@@ -88,9 +87,14 @@ function Header() {
             <RouterLink className="nav-link" to="/employer">
               Nhà tuyển dụng
             </RouterLink>
-            <RouterLink className="nav-link" to="/candidate">
-              Ứng viên
-            </RouterLink>
+            {
+              includes(permission, roles.Employer) && (
+              <RouterLink className="nav-link" to="/candidate">
+                Ứng viên
+              </RouterLink>
+              )
+            }
+
           </Nav>
           <Nav>
             { !isEmpty(dataUser) ? (

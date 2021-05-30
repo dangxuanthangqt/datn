@@ -1,14 +1,17 @@
 import {
   dashboardCandidateAPI,
   deleteApplyJobAPI,
+  deleteEmployerAttentionAPI,
   getCandidateAPI,
   getDetailCandidateAPI,
   getInfoCandidateByUserIdAPI,
+  getInfoEmployerAttentionAPI,
   getRecruimentApplyByUserIdAPI,
   updateInfoCandidateByUserIdAPI,
 } from 'api/candidateAPI'
 import { toastSuccess, toastWarning } from 'helpers/toastify'
 import { get, head } from 'lodash'
+import { getAttentionCV } from 'stores/moduleEmployer/thunks'
 import Store from 'stores/store'
 import {
   dispatchFetchDashboardCandidateSuccess,
@@ -16,6 +19,7 @@ import {
   dispatchFetchInfoCandidateSuccess,
   dispatchFetchListCandidateSuccess,
   dispatchFetchDetailCandidateSuccess,
+  dispatchFetchListEmployerAttentionSuccess,
 } from './slices'
 
 export const dispatchFetchDashboardCandidateRequest = (id) => async (dispatch) => {
@@ -88,5 +92,25 @@ export const dispatchFetchDetailCandidate = (id) => async (dispatch) => {
     dispatch(dispatchFetchDetailCandidateSuccess(result))
   } catch (err) {
     toastWarning('Fetch detail fail')
+  }
+}
+
+export const dispatchFetchListEmployerAttention = (id) => async (dispatch) => {
+  try {
+    const resp = await getInfoEmployerAttentionAPI(id)
+    const result = head(get(resp, 'data.result')) || []
+    dispatch(dispatchFetchListEmployerAttentionSuccess(result))
+  } catch (error) {
+    toastWarning('Fetch list employer attention fail')
+  }
+}
+
+export const dispatchRejectEmployerAttention = ({ cvID, userID }) => async (dispatch) => {
+  try {
+    const resp = await deleteEmployerAttentionAPI({ cvID, userID })
+    toastSuccess('Từ chối thành công !')
+    dispatch(getAttentionCV(userID))
+  } catch (error) {
+    toastWarning('Từ chối thất bại!')
   }
 }

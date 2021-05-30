@@ -6,6 +6,7 @@ const initialState = {
   listRecruitmentApply: {},
   listCandidate: {},
   detailCandidate: {},
+  listEmployerAttention: [],
 }
 
 const candidateSlice = createSlice({
@@ -27,6 +28,9 @@ const candidateSlice = createSlice({
     dispatchFetchDetailCandidateSuccess: (state, { payload }) => {
       state.detailCandidate = payload
     },
+    dispatchFetchListEmployerAttentionSuccess: (state, { payload }) => {
+      state.listEmployerAttention = payload
+    },
 
   },
 })
@@ -37,6 +41,7 @@ export const {
   dispatchFetchListRecruitmentApplySuccess,
   dispatchFetchListCandidateSuccess,
   dispatchFetchDetailCandidateSuccess,
+  dispatchFetchListEmployerAttentionSuccess,
 } = candidateSlice.actions
 
 export default candidateSlice.reducer
