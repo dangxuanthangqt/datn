@@ -25,6 +25,7 @@ import { detailRecruimentSelector, listRecruitmentByUserIDSelector } from 'store
 import { dispatchApplyJob, dispatchfetchDetailRecruitment, dispatchfetchLitsRecruitmentByEmployerID } from 'stores/moduleRecruitment/thunks'
 import { v4 } from 'uuid'
 import './style.scss'
+import '../../../HomePage/components/ListNewJob/style.scss'
 
 export default function EmployerDetail() {
   const { id } = useParams()
@@ -79,10 +80,6 @@ export default function EmployerDetail() {
     setVisibleChilds(false)
   }
 
-  // const showChildrensDrawer = (id) => {
-  //   dispatch(getCvByIdRequest(id))
-  //   setVisibleChilds(true)
-  // }
   const handelApply = (cvID) => {
     const dataApply = { cv_id: cvID, recruitment_id: recruitmentid }
     dispatch(dispatchApplyJob(dataApply))
@@ -97,21 +94,6 @@ export default function EmployerDetail() {
       cancelText: 'Hủy',
     })
   }
-  // const handelApply = (id) => {
-  //   const data = { cv_id: id, recruitment_id: recruitmentid }
-  //   dispatch(applyJobRequest(data))
-  // }
-
-  // const detailCv = useSelector((state) => state.cv.detailCv)
-  // const dataUser = useSelector((state) => state.cv.dataUser)
-  // const dataCV = useSelector((state) => state.cv.dataCV)
-
-  // const token = getAccessToken()
-  // if (token) {
-  //   var idUser = JwtDecode(token).sub
-  // }
-
-  // const listCvByUserId = useSelector((state) => state.cv.listCvByUserId)
 
   const showChildrensDrawer = (CVid) => {
     dispatch(dispatchFetchDetailCvRequest(CVid))

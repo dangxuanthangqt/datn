@@ -3,12 +3,14 @@ import {
 } from 'antd'
 import { Regex } from 'constants/validation'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { dispatchRegisterCandidate } from 'stores/moduleAuth/thunks'
 
 function SignupCandidate() {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-  const onFinish = () => {
-    // dispatch(registerCandidateRequest(value))
+  const onFinish = (value) => {
+    dispatch(dispatchRegisterCandidate(value))
     // TODO: create
   }
 
@@ -39,7 +41,7 @@ function SignupCandidate() {
           >
             <Input
               className="login__form-input"
-              placeholder="Trần Kim Hoàng"
+              placeholder="Nhập tên"
             />
           </Form.Item>
 

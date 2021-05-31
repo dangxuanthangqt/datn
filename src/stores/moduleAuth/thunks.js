@@ -4,7 +4,8 @@ import { push } from 'connected-react-router'
 import * as authAPI from 'api/authAPI'
 import { hideLoading, showLoading } from 'stores/moduleGlobalLoading/slices'
 import { decodeJWT } from 'helpers/decodeJWT'
-import { toastSuccess } from 'helpers/toastify'
+import { toastSuccess, toastWarning } from 'helpers/toastify'
+import { registerCandidate, registerEmployer } from 'api/registerAPI'
 import { loginFailure, loginSuccess, setJwtDecode } from './slices'
 
 export const loginUserRequest = (payload) => async (dispatch) => {
@@ -17,7 +18,27 @@ export const loginUserRequest = (payload) => async (dispatch) => {
     toastSuccess('Đăng nhập thành công !')
     dispatch(push('/'))
   } catch (error) {
+    toastWarning('Có lỗi xảy ra, xin vui lòng kiểm tra lại !')
     dispatch(loginFailure())
     dispatch(hideLoading())
+  }
+}
+
+export const dispatchRegisterEmployer = (data) => async (dispatch) => {
+  try {
+    await registerEmployer(data)
+    dispatch(push('/login'))
+    toastSuccess('Đăng ký nhà tuyển dụng thành công !')
+  } catch (error) {
+    toastWarning('Đăng ký thất bại!')
+  }
+}
+export const dispatchRegisterCandidate = (data) => async (dispatch) => {
+  try {
+    await registerCandidate(data)
+    toastSuccess('Đăng ký nhà ứng viên thành công !')
+    dispatch(push('/login'))
+  } catch (error) {
+    toastWarning('Đăng ký thất bại!')
   }
 }

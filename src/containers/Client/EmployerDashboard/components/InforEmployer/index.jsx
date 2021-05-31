@@ -6,8 +6,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userIDSelector } from 'stores/moduleAuth/selectors'
 import { infoEmployerSelector } from 'stores/moduleEmployer/selectors'
-import { dispatchUpdateInfoEmployerRequest, fetchInfoEmployerRequest } from 'stores/moduleEmployer/thunks'
-
+import { dispatchUpdateInfoEmployerRequest, fetchInfoEmployerByUserIDRequest } from 'stores/moduleEmployer/thunks'
 import './style.scss'
 
 export default function InforEmployer() {
@@ -18,7 +17,7 @@ export default function InforEmployer() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchInfoEmployerRequest(userID))
+    dispatch(fetchInfoEmployerByUserIDRequest(userID))
   }, [dispatch])
 
   const onFinish = (value) => {

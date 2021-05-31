@@ -3,12 +3,14 @@ import {
 } from 'antd'
 import { Regex } from 'constants/validation'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { dispatchRegisterEmployer } from 'stores/moduleAuth/thunks'
 
 function SignupEmployer() {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-  const onFinish = () => {
-    // dispatch(registerEmployerRequest(value))
+  const onFinish = (value) => {
+    dispatch(dispatchRegisterEmployer(value))
   //  console.log(value)
   }
 

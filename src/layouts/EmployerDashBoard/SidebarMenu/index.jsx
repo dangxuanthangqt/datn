@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { userIDSelector } from 'stores/moduleAuth/selectors'
 import { infoEmployerSelector } from 'stores/moduleEmployer/selectors'
-import { fetchInfoEmployerRequest } from 'stores/moduleEmployer/thunks'
+import { fetchInfoEmployerByUserIDRequest } from 'stores/moduleEmployer/thunks'
 import './style.scss'
 
 export default function SideBarMenu() {
@@ -23,7 +23,7 @@ export default function SideBarMenu() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchInfoEmployerRequest(userID))
+    dispatch(fetchInfoEmployerByUserIDRequest(userID))
   }, [dispatch])
 
   return (

@@ -37,6 +37,11 @@ function Header() {
     })
   }
 
+  const handleRedirect = () => {
+    if (includes(permission, roles.Candidate)) return '/candidate-dashboard'
+    if (includes(permission, roles.Employer)) return '/employer-dashboard'
+    return '/admin-dashboard'
+  }
   // eslint-disable-next-line react/prop-types
   const ActiveUser = ({ user }) => (
     <NavDropdown
@@ -47,7 +52,7 @@ function Header() {
     >
       <RouterLink
         className="dropdown-item"
-        to={includes(permission, roles.Candidate) ? '/candidate-dashboard' : '/employer-dashboard'}
+        to={handleRedirect()}
       >
         Quản lý thông tin
       </RouterLink>

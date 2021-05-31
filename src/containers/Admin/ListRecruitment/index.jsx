@@ -155,7 +155,7 @@ function ListRecruitment() {
       expandable={{
         expandedRowRender,
       }}
-      dataSource={newData.sort((a, b) => b.order - a.order)}
+      dataSource={newData.sort((a, b) => a.active - b.active)}
       pagination={{ position: ['bottomCenter'], showSizeChanger: false }}
     />
   )

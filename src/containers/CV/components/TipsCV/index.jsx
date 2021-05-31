@@ -16,7 +16,6 @@ export default function TipsCV(props) {
   const dispatch = useDispatch()
   const onSubmit = () => {
     const data = getValues().dataCV
-    console.log('data', data)
     const {
       birthday, email, fullName, location, phone, position, title, avatar,
     } = form.getFieldValue()

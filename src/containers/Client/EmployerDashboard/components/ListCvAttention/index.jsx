@@ -34,9 +34,7 @@ export default function ListCandidateDB() {
   }, [dispatch])
 
   const data = listCvAttention?.[0] || []
-  console.log('data', data)
   const showDrawer = (value) => {
-    console.log('value', value)
     dispatch(dispatchFetchDetailCvRequest(value.cv_id))
     setVisible(true)
   }

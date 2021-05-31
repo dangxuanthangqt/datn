@@ -38,7 +38,18 @@ export const fetchListEmployerRequest = (payload) => async (dispatch) => {
 
 export const fetchInfoEmployerRequest = (id) => async (dispatch) => {
   try {
-    const resp = await employerAPI.fetchInforEmployerByUserId(id)
+    const resp = await employerAPI.fetchInforEmployerById(id)
+    const { data } = resp
+    const result = head(get(data, 'result', [])) || {}
+    dispatch(fetchInfoEmployerSuccess(result))
+  } catch (error) {
+    toastWarning('fetch info Employer fail !')
+  }
+}
+
+export const fetchInfoEmployerByUserIDRequest = (id) => async (dispatch) => {
+  try {
+    const resp = await employerAPI.getInfoEmployerByUserIdAPI(id)
     const { data } = resp
     const result = head(get(data, 'result', [])) || {}
     dispatch(fetchInfoEmployerSuccess(result))
@@ -59,7 +70,9 @@ export const dispatchFetchDashboardEmployerRequest = (id) => async (dispatch) =>
 export const dispatchUpdateInfoEmployerRequest = ({ id, data }) => async (dispatch) => {
   try {
     const resp = await employerAPI.updateInfoEmployerByUserIdAPI({ id, data })
-    dispatch(fetchInfoEmployerRequest(id))
+    const { store } = Store
+    const userID = get(store.getState(), 'authState.user.id')
+    dispatch(fetchInfoEmployerByUserIDRequest(userID))
     toastSuccess('Cập nhật thông tin thành công !')
   } catch (error) {
     toastWarning('update infor fail')
