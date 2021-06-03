@@ -1,0 +1,28 @@
+.main-infor-footer {
+  height: 200px;
+  // background-color: #1fbcdb;
+  background-image: url('https://img.lovepik.com/photo/40008/2412.jpg_wh860.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  background-position: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  span {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0px !important;
+  }
+  p {
+    color: #ededed;
+    font-weight: bold;
+  }
+}
+.info-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

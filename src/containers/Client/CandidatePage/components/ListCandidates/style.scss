@@ -1,0 +1,102 @@
+.candidates {
+  padding: 20px 0;
+  &__title {
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    z-index: 100;
+    background-color: white;
+    h5 {
+      color: white;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      right: -30%;
+      transform: rotate(24deg);
+      top: 0;
+      height: 500%;
+      width: 182%;
+      background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+      z-index: -100;
+    }
+  }
+  &__content {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 15px 0;
+    // padding: 15px;
+    border: 1px solid #eee;
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    align-items: center;
+    &-avatar {
+      padding: 15px;
+      border-right: 1px solid black;
+    }
+    &-detail {
+      background-color: white;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 35px;
+      flex-direction: column;
+      h6 {
+        font-size: 1.1rem;
+        color: #3f4259;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      &-dec {
+        width: 100%;
+        // display: flex;
+        // justify-content: center;
+        text-align: left;
+        p {
+          width: 100%;
+          display: inline-block;
+          color: #9999b2;
+          font-size: 0.9rem;
+          padding-bottom: 0 !important;
+          margin-bottom: 2px !important;
+        }
+      }
+      &:hover {
+        box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+.pagination__candidates {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.data-null {
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.drawer-recruitment {
+  .ant-drawer-body {
+    padding: 10px 24px !important;
+  }
+  .ant-drawer-wrapper-body {
+    padding-top: 70px !important;
+  }
+}
+.detail-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  h5 {
+    margin-left: 15px;
+  }
+}

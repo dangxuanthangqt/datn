@@ -1,0 +1,120 @@
+.listCV {
+  padding: 0 10px;
+  background-color: #f7f7f7;
+  height: auto;
+  padding-bottom: 50px;
+  margin: 10px 10px 0 10px;
+
+  &__item {
+    padding: 30px 0;
+    a {
+      text-decoration: none;
+    }
+    &-detail {
+      height: 300px;
+      padding: 0 10px;
+      width: 100%;
+
+      img {
+        position: relative;
+        padding: 30px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border: 2px solid #e0e0e2;
+        border-radius: 20px;
+        box-shadow: 1px 6px 9px 1px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        overflow: hidden;
+        &:hover {
+          border: 2px solid #00b2ea;
+        }
+      }
+      &-overlay {
+        margin: 30px 10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        border-radius: 20px;
+        &-btn {
+          width: 50%;
+          margin: 5px 0;
+          border-radius: 10px;
+        }
+      }
+      &:hover {
+        .listCV__item-detail-overlay {
+          display: flex;
+        }
+      }
+      h4 {
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 1rem;
+        color: #595c70;
+      }
+      &-push {
+        cursor: pointer;
+        background-color: white;
+        border-radius: 20px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        span {
+          margin: 10px 0 !important;
+        }
+        &:hover {
+          background-color: #eaeaea;
+        }
+      }
+    }
+  }
+}
+.CV__title {
+  margin: 0 10px;
+  background-color: #f7f7f7;
+  box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  height: 70px;
+  padding: 5px 10px;
+  h3 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 10;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    left: -10%;
+    transform: rotate(20deg);
+    top: 0;
+    height: 200%;
+    width: 65%;
+    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+  }
+}
+.drawer-cv {
+  .ant-drawer-body {
+    padding: 10px 24px !important;
+  }
+  .ant-drawer-wrapper-body {
+    padding-top: 70px !important;
+  }
+}

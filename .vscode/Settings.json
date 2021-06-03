@@ -14,5 +14,6 @@
   },
   "[json]": {
     "editor.formatOnSave": true
-  }
+  },
+  "terminal.integrated.automationShell.windows": ""
 }

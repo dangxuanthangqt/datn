@@ -1,0 +1,86 @@
+.pagination__employer {
+  display: flex;
+  justify-content: center;
+}
+.job {
+  &__title {
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    z-index: 100;
+    background-color: white;
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 !important;
+      text-decoration: none;
+    }
+    h5 {
+      margin: 0 !important;
+      &:first-child {
+        color: white;
+      }
+      &:last-child {
+        font-size: 15px;
+        cursor: pointer;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 5px;
+        background-color: #1890ff;
+        span {
+          margin-right: 5px;
+        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+          background-color: #1bc5c3;
+        }
+      }
+    }
+    .line-theme {
+      width: 30%;
+      height: 4px;
+      background: #4080bc;
+      border-radius: 40px;
+      margin-right: 20px;
+      align-self: center;
+      text-align: center;
+      align-content: center;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      right: -30%;
+      transform: rotate(24deg);
+      top: 0;
+      height: 500%;
+      width: 182%;
+      background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+      z-index: -100;
+    }
+  }
+}
+.data-null {
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.employer-home__content-avatar img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background-color: white;
+}
+
+.employer-container {
+  height: 385px;
+  border-bottom: 1px solid black;
+  margin-bottom: 30px;
+}

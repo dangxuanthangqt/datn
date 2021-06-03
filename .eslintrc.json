@@ -29,7 +29,11 @@
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
     "react/forbid-prop-types": "off",
-    "space-in-parens": ["error", "always"]
+    "object-curly-spacing": ["error", "always"],
+    "click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "no-unused-vars": "warn"
   },
   "settings": {
     "import/resolver": {

@@ -1,0 +1,32 @@
+.tipsCV {
+  margin: 0 10px;
+  padding: 30px;
+  background-color: white;
+  height: 99%;
+  border-radius: 20px;
+  &__content {
+    &-des {
+      p {
+        span {
+          margin-right: 10px;
+        }
+        margin-bottom: 20px;
+      }
+      padding: 10px 20px;
+    }
+  }
+  &__btn {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    &-cus {
+      border-radius: 15px;
+      margin: 5px 0;
+      width: 300px;
+      height: 35px;
+    }
+  }
+}
