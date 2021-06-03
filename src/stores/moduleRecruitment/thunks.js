@@ -117,8 +117,8 @@ export const dispatchDeleteRecruitmentRequest = (id) => async (dispatch) => {
   const userID = get(store.getState(), 'authState.user.id')
   try {
     const resp = await recruitmentsAPI.deleteRecruitmentAPI(id)
-    dispatch(dispatchFetchListCvAppliedRequest({
-      id: userID, name: '', limit: 5, page: 1,
+    dispatch(dispatchfetchLitsRecruitmentByUserID({
+      id: userID, vacancy: '', active: '', limit: 5, page: 1,
     }))
     toastSuccess('Xóa tin  tuyển dụng thành công!')
   } catch (error) {

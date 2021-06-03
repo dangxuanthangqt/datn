@@ -1,6 +1,7 @@
 import { deleteApplyJobAPI } from 'api/candidateAPI'
 import { getCvByEmployerIdAPI } from 'api/cvAPI'
 import * as employerAPI from 'api/employerAPI'
+import { sendMail, sendMailInterView, sendMailReject } from 'api/mailAPI'
 import { push } from 'connected-react-router'
 import { toastSuccess, toastWarning } from 'helpers/toastify'
 import { get, head } from 'lodash'
@@ -88,7 +89,17 @@ export const dispatchFetchListCvAppliedRequest = ({ id, ...rest }) => async (dis
   }
 }
 
-export const deleteAppliedJob = (id) => async (dispatch) => {
+export const dispatchSendMailReject = (data) => async () => {
+  console.log('data', data)
+  try {
+    const resp = await sendMailReject(data)
+    toastSuccess('Đã gửi mail từ chối cho ứng viên !')
+  } catch (error) {
+    toastWarning('Gửi mail thất bại !')
+  }
+}
+
+export const deleteAppliedJob = (id, totalData) => async (dispatch) => {
   const { store } = Store
   const userID = get(store.getState(), 'authState.user.id')
   try {
@@ -96,7 +107,7 @@ export const deleteAppliedJob = (id) => async (dispatch) => {
     dispatch(dispatchFetchListCvAppliedRequest({
       id: userID, name: '', limit: 5, page: 1,
     }))
-    toastSuccess('Từ chối ứng viên thành công !')
+    dispatch(dispatchSendMailReject(totalData))
   } catch (error) {
     toastWarning('từ chối thất bại')
   }
@@ -118,5 +129,25 @@ export const getAttentionCV = (id) => async (dispatch) => {
     dispatch(fetchListCvAttentionSuccess(get(resp, 'data.result', [])))
   } catch (error) {
     toastWarning('Get list cv that bai')
+  }
+}
+
+export const dispatchSendMail = (data) => async () => {
+  console.log('data', data)
+  try {
+    const resp = await sendMail(data)
+    toastSuccess('Gửi mail thành công !')
+  } catch (error) {
+    toastWarning('Gửi mail thất bại !')
+  }
+}
+
+export const dispatchSendMailInterView = (data) => async () => {
+  console.log('data', data)
+  try {
+    const resp = await sendMailInterView(data)
+    toastSuccess('Gửi mail thành công !')
+  } catch (error) {
+    toastWarning('Gửi mail thất bại !')
   }
 }

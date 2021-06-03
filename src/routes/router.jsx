@@ -19,20 +19,20 @@ export default function Routers() {
   return (
     <Router history={history}>
       <Suspense fallback="loading">
-
         {
            AuthRoutes.map((item) => (
              <AuthRoute key={v4()} {...item} />
            ))
           }
-        {
-            PublicRoutes.map((item) => (
-              <PublicRoute key={v4()} {...item} />
-            ))
-        }
+
         {
             ProtectedRoutesAllow.map(item => (
               <ProtectedRoute key={v4()} {...item} />
+            ))
+        }
+        {
+            PublicRoutes.map((item) => (
+              <PublicRoute key={v4()} {...item} />
             ))
         }
 

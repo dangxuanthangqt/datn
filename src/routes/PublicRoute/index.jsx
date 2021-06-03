@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { v4 } from 'uuid'
 
 export default function ProtectedRoute(props) {
@@ -21,6 +21,7 @@ export default function ProtectedRoute(props) {
            />
          ))
       }
+      {/* <Redirect from="*" to="/" /> */}
     </Switch>
   )
 }

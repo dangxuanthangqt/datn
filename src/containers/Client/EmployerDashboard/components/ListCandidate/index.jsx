@@ -12,6 +12,8 @@ import {
 } from 'antd'
 import { DataNull } from 'components/DataNull'
 import DetailCv from 'containers/Client/CandidateDashboard/components/ListCv/DetailCv'
+import { toastWarning } from 'helpers/toastify'
+import { get } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/esm/Container'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,8 +21,8 @@ import { userIDSelector } from 'stores/moduleAuth/selectors'
 import { dispatchDeleteApplyJobRequest } from 'stores/moduleCandidate/thunks'
 import { detailCVSelector } from 'stores/moduleCv/selectors'
 import { dispatchFetchDetailCvRequest } from 'stores/moduleCv/thunks'
-import { listCvAppliedSelector } from 'stores/moduleEmployer/selectors'
-import { dispatchFetchListCvAppliedRequest } from 'stores/moduleEmployer/thunks'
+import { infoEmployerSelector, listCvAppliedSelector } from 'stores/moduleEmployer/selectors'
+import { deleteAppliedJob, dispatchFetchListCvAppliedRequest, dispatchSendMailInterView } from 'stores/moduleEmployer/thunks'
 import { v4 } from 'uuid'
 
 import '../ListJobEmployer/style.scss'
@@ -30,6 +32,8 @@ export default function ListCandidateDB() {
   const userID = useSelector(userIDSelector)
   const dispatch = useDispatch()
   const listCv = useSelector(listCvAppliedSelector)
+  const infoEmployer = useSelector(infoEmployerSelector)
+
   const [current, setCurrent] = useState(1)
   const [visible, setVisible] = useState(false)
 
@@ -81,18 +85,49 @@ export default function ListCandidateDB() {
     ? `Chi tiết CV: ${detailCV.title}`
     : ''
 
-  const handelDelete = (id) => {
+  const handelDelete = (cv) => {
     setCurrent(1)
-    dispatch(dispatchDeleteApplyJobRequest(id))
+    const totalData = {
+      ...cv,
+      ...infoEmployer,
+      email: get(detailCV, 'object.dataUser.email'),
+      position: get(detailCV, 'object.dataUser.position'),
+    }
+    dispatch(deleteAppliedJob(cv.id, totalData))
   }
 
-  const handleDeleteApplyJob = (event) => {
+  const handleDeleteApplyJob = (cv) => {
+    dispatch(dispatchFetchDetailCvRequest(cv.cv_id))
     Modal.confirm({
       title: 'Thông báo',
       icon: <ExclamationCircleOutlined />,
-      content: `Bạn có muốn hủy cv ${detailCV.title}`,
+      content: 'Bạn có muốn từ chối cv này ?',
       okText: 'Từ chối',
-      onOk: () => handelDelete(event.id),
+      onOk: () => handelDelete(cv),
+      cancelText: 'Hủy',
+    })
+  }
+
+  const handleSendMail = (cv) => {
+    const totalData = {
+      ...cv,
+      ...infoEmployer,
+      email: get(detailCV, 'object.dataUser.email'),
+      position: get(detailCV, 'object.dataUser.position'),
+    }
+    if (get(detailCV, 'object.dataUser.email')) { dispatch(dispatchSendMailInterView(totalData)) } else {
+      toastWarning('Có một vài sự cố nhỏ. Vui lòng gửi lại.')
+    }
+  }
+
+  const handleSend = (cv) => {
+    dispatch(dispatchFetchDetailCvRequest(cv.cv_id))
+    Modal.confirm({
+      title: 'Thông báo',
+      icon: <ExclamationCircleOutlined />,
+      content: `Gửi mail tới ứng viên ${cv.name}`,
+      okText: 'Xác nhận',
+      onOk: () => handleSendMail(cv),
       cancelText: 'Hủy',
     })
   }
@@ -137,6 +172,9 @@ export default function ListCandidateDB() {
           <Col className="listCandidatesDb__content-button" span={4}>
             <Button type="primary" onClick={() => showDrawer(value)}>
               Xem CV
+            </Button>
+            <Button type="primary" onClick={() => handleSend(value)}>
+              Gửi thư mời
             </Button>
             <Button
               type="primary"

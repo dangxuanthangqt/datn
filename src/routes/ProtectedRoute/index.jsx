@@ -29,8 +29,7 @@ export default function ProtectedRoute(props) {
            />
          ))
       }
-      <Route path="*" exact render={() => <Redirect to="/" />} />
-      {/* bo cai nay cuoi cung */}
+
     </Switch>
   )
 }

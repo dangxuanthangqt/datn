@@ -10,15 +10,17 @@ import {
 } from 'antd'
 import { DataNull } from 'components/DataNull'
 import DetailCv from 'containers/Client/CandidateDashboard/components/ListCv/DetailCv'
+import { toastWarning } from 'helpers/toastify'
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/esm/Container'
+import { get } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { userIDSelector } from 'stores/moduleAuth/selectors'
 import { dispatchRejectEmployerAttention } from 'stores/moduleCandidate/thunks'
 import { detailCVSelector } from 'stores/moduleCv/selectors'
 import { dispatchFetchDetailCvRequest } from 'stores/moduleCv/thunks'
-import { listCvAttentionSelector } from 'stores/moduleEmployer/selectors'
-import { getAttentionCV } from 'stores/moduleEmployer/thunks'
+import { listCvAttentionSelector, infoEmployerSelector } from 'stores/moduleEmployer/selectors'
+import { dispatchSendMail, getAttentionCV } from 'stores/moduleEmployer/thunks'
 import { v4 } from 'uuid'
 import '../ListJobEmployer/style.scss'
 import './style.scss'
@@ -27,6 +29,7 @@ export default function ListCandidateDB() {
   const userID = useSelector(userIDSelector)
   const dispatch = useDispatch()
   const listCvAttention = useSelector(listCvAttentionSelector)
+  const infoEmployer = useSelector(infoEmployerSelector)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -56,9 +59,33 @@ export default function ListCandidateDB() {
     Modal.confirm({
       title: 'Thông báo',
       icon: <ExclamationCircleOutlined />,
-      content: 'Từ chối',
+      content: `Từ chối ứng viên ${payload.name}`,
       okText: 'Xác nhận',
       onOk: () => onReject(payload.cv_id),
+      cancelText: 'Hủy',
+    })
+  }
+
+  const handleSendMail = (cv) => {
+    const totalData = {
+      ...cv,
+      ...infoEmployer,
+      email: get(detailCV, 'object.dataUser.email'),
+      position: get(detailCV, 'object.dataUser.position'),
+    }
+    if (get(detailCV, 'object.dataUser.email')) { dispatch(dispatchSendMail(totalData)) } else {
+      toastWarning('Có một vài sự cố nhỏ. Vui lòng gửi lại.')
+    }
+  }
+
+  const handleSend = (cv) => {
+    dispatch(dispatchFetchDetailCvRequest(cv.cv_id))
+    Modal.confirm({
+      title: 'Thông báo',
+      icon: <ExclamationCircleOutlined />,
+      content: `Gửi mail tới ứng viên ${cv.name}`,
+      okText: 'Xác nhận',
+      onOk: () => handleSendMail(cv),
       cancelText: 'Hủy',
     })
   }
@@ -106,10 +133,17 @@ export default function ListCandidateDB() {
             </Button>
             <Button
               type="primary"
+              onClick={() => handleSend(value)}
+            >
+              Gửi mail liên hệ
+            </Button>
+            <Button
+              type="primary"
               onClick={() => handleReject(value)}
             >
               Từ chối
             </Button>
+
           </Col>
         </Row>
       </div>
